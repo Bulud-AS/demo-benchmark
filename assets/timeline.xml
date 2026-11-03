@@ -1,0 +1,2353 @@
+<?xml version='1.0' encoding='utf-8'?>
+<demo>
+  <rhythm timestamp="0" signature="4/4" bpm="60" />
+  <rhythm timestamp="2000" signature="4/4" bpm="127" />
+  <properties demoname="Median" loadingpic="" music="Pictogram_5_master.ogg" musicoffset="2000" resolution="1280x720" />
+  <resource index="2" loaderfuid="shader" file="ShaderClear.fx" />
+  <resource index="4" loaderfuid="texture" file="white.jpg" />
+  <resource index="5" loaderfuid="shader" file="Alpha.fx" />
+  <resource index="6" loaderfuid="assimp" file="scene1-2dish.DAE">
+    </resource>
+  <resource index="7" loaderfuid="assimp" file="sceneX-city.DAE">
+    </resource>
+  <resource index="8" loaderfuid="assimp" file="sceneX-city2open.DAE">
+    </resource>
+  <resource index="9" loaderfuid="assimp" file="scene3.DAE">
+    </resource>
+  <resource index="10" loaderfuid="shader" file="NoiseCrunch.fx" />
+  <resource index="11" loaderfuid="texture" file="noise-pixelate.png" />
+  <resource index="12" loaderfuid="assimp" file="overlay-tiny.DAE">
+    </resource>
+  <resource index="13" loaderfuid="shader" file="ShaderTransparent.fx" />
+  <resource index="14" loaderfuid="shader" file="PanAndScan.fx" />
+  <resource index="15" loaderfuid="assimp" file="scene2-a.DAE">
+    </resource>
+  <resource index="16" loaderfuid="assimp" file="scene2-b.DAE">
+    </resource>
+  <resource index="17" loaderfuid="assimp" file="scene2-c.DAE">
+    </resource>
+  <resource index="18" loaderfuid="assimp" file="scene2-d.DAE">
+    </resource>
+  <resource index="19" loaderfuid="assimp" file="scene3-b.DAE">
+    </resource>
+  <resource index="20" loaderfuid="shader" file="Crossfade.fx" />
+  <resource index="21" loaderfuid="texture" file="title.png" />
+  <resource index="22" loaderfuid="assimp" file="loop01.DAE">
+    </resource>
+  <resource index="23" loaderfuid="assimp" file="loop02.DAE">
+    </resource>
+  <resource index="24" loaderfuid="assimp" file="loop03.DAE">
+    </resource>
+  <resource index="25" loaderfuid="texture" file="black.png" />
+  <resource index="26" loaderfuid="assimp" file="loop04.DAE">
+    </resource>
+  <resource index="27" loaderfuid="assimp" file="loop05.DAE">
+    </resource>
+  <resource index="28" loaderfuid="assimp" file="sceneX-city-action.DAE">
+    </resource>
+  <resource index="29" loaderfuid="assimp" file="sceneX-city-loops.DAE">
+    </resource>
+  <resource index="30" loaderfuid="assimp" file="sceneX-city-end.DAE">
+    </resource>
+  <resource index="31" loaderfuid="assimp" file="scene3-c.DAE">
+    </resource>
+  <resource index="32" loaderfuid="assimp" file="scene3-z.DAE">
+    </resource>
+  <resource index="33" loaderfuid="assimp" file="scene3-d.DAE">
+    </resource>
+  <resource index="34" loaderfuid="assimp" file="sceneX-city-action2.DAE">
+    </resource>
+  <rendertarget index="0" color="a8r8g8b8" depth="d24x8" size="3840x2160" clearOnFrameStart="true" />
+  <rendertarget index="1" color="a8r8g8b8" depth="d24x8" size="3840x2160" clearOnFrameStart="false" />
+  <rendertarget index="2" color="a8r8g8b8" depth="d24x8" size="3840x2160" clearOnFrameStart="false" />
+  <node index="1" type="output" x="262" y="-79" />
+  <node index="4" type="resource" resourceid="2" x="-216" y="0" />
+  <node index="10" type="rendertarget" targetid="0" x="177" y="-43" />
+  <node index="11" type="effect" effectid="3" x="220" y="-67" />
+  <node index="12" type="resource" resourceid="5" x="35" y="-126" />
+  <node index="13" type="resource" resourceid="6" x="-142" y="-95" />
+  <node index="14" type="effect" effectid="4" x="36" y="362" />
+  <node index="15" type="resource" resourceid="7" x="-25" y="365" />
+  <node index="16" type="effect" effectid="5" x="39" y="378" />
+  <node index="17" type="resource" resourceid="8" x="-27" y="376" />
+  <node index="18" type="effect" effectid="6" x="39" y="594" />
+  <node index="19" type="resource" resourceid="5" x="-58" y="564" />
+  <node index="20" type="resource" resourceid="4" x="-29" y="587" />
+  <node index="21" type="effect" effectid="7" x="-63" y="1" />
+  <node index="22" type="resource" resourceid="9" x="-108" y="18" />
+  <node index="24" type="resource" resourceid="10" x="-58" y="-6" />
+  <node index="25" type="resource" resourceid="11" x="-65" y="15" />
+  <node index="26" type="effect" effectid="8" x="0" y="0" />
+  <node index="27" type="effect" effectid="9" x="41" y="496" />
+  <node index="28" type="resource" resourceid="12" x="-44" y="487" />
+  <node index="29" type="resource" resourceid="13" x="-31" y="507" />
+  <node index="30" type="effect" effectid="10" x="42" y="513" />
+  <node index="31" type="effect" effectid="11" x="-22" y="-79" />
+  <node index="32" type="resource" resourceid="15" x="-82" y="-74" />
+  <node index="33" type="effect" effectid="12" x="-18" y="-51" />
+  <node index="34" type="resource" resourceid="16" x="-77" y="-53" />
+  <node index="35" type="effect" effectid="13" x="-17" y="-35" />
+  <node index="36" type="resource" resourceid="17" x="-91" y="-32" />
+  <node index="37" type="effect" effectid="14" x="-16" y="-20" />
+  <node index="38" type="resource" resourceid="18" x="-94" y="-19" />
+  <node index="39" type="effect" effectid="15" x="-64" y="20" />
+  <node index="40" type="resource" resourceid="19" x="-118" y="26" />
+  <node index="41" type="effect" effectid="16" x="-67" y="56" />
+  <node index="42" type="resource" resourceid="18" x="-123" y="77" />
+  <node index="43" type="effect" effectid="17" x="-10" y="62" />
+  <node index="44" type="resource" resourceid="14" x="-62" y="81" />
+  <node index="45" type="effect" effectid="18" x="-15" y="561" />
+  <node index="46" type="resource" resourceid="21" x="-62" y="536" />
+  <node index="47" type="effect" effectid="19" x="37" y="574" />
+  <node index="48" type="resource" resourceid="14" x="-23" y="524" />
+  <node index="49" type="effect" effectid="20" x="0" y="85" />
+  <node index="50" type="resource" resourceid="2" x="-84" y="103" />
+  <node index="51" type="effect" effectid="21" x="43" y="84" />
+  <node index="52" type="resource" resourceid="14" x="-16" y="78" />
+  <node index="53" type="resource" resourceid="23" x="-65" y="89" />
+  <node index="54" type="effect" effectid="22" x="0" y="99" />
+  <node index="55" type="effect" effectid="23" x="38" y="99" />
+  <node index="56" type="effect" effectid="24" x="-1" y="115" />
+  <node index="57" type="effect" effectid="25" x="36" y="114" />
+  <node index="58" type="effect" effectid="26" x="0" y="126" />
+  <node index="59" type="effect" effectid="27" x="35" y="127" />
+  <node index="60" type="effect" effectid="28" x="-10" y="144" />
+  <node index="61" type="effect" effectid="29" x="32" y="142" />
+  <node index="62" type="effect" effectid="30" x="-234" y="172" />
+  <node index="63" type="resource" resourceid="25" x="-310" y="217" />
+  <node index="64" type="resource" resourceid="14" x="-280" y="175" />
+  <node index="65" type="effect" effectid="31" x="-235" y="185" />
+  <node index="66" type="effect" effectid="32" x="-234" y="199" />
+  <node index="67" type="effect" effectid="33" x="-234" y="211" />
+  <node index="68" type="effect" effectid="34" x="-237" y="228" />
+  <node index="69" type="effect" effectid="35" x="-237" y="238" />
+  <node index="70" type="effect" effectid="36" x="-239" y="255" />
+  <node index="71" type="effect" effectid="37" x="-239" y="265" />
+  <node index="72" type="effect" effectid="38" x="-22" y="267" />
+  <node index="73" type="resource" resourceid="24" x="-74" y="262" />
+  <node index="75" type="effect" effectid="39" x="24" y="269" />
+  <node index="76" type="resource" resourceid="14" x="-20" y="257" />
+  <node index="77" type="resource" resourceid="2" x="-67" y="253" />
+  <node index="78" type="effect" effectid="40" x="32" y="245" />
+  <node index="79" type="effect" effectid="41" x="-21" y="230" />
+  <node index="80" type="resource" resourceid="22" x="-72" y="236" />
+  <node index="81" type="effect" effectid="42" x="-20" y="201" />
+  <node index="82" type="effect" effectid="43" x="36" y="202" />
+  <node index="83" type="resource" resourceid="26" x="-75" y="199" />
+  <node index="84" type="effect" effectid="44" x="23" y="283" />
+  <node index="85" type="resource" resourceid="25" x="-28" y="291" />
+  <node index="86" type="effect" effectid="45" x="-9" y="303" />
+  <node index="87" type="effect" effectid="46" x="24" y="303" />
+  <node index="88" type="resource" resourceid="27" x="-58" y="308" />
+  <node index="89" type="effect" effectid="47" x="36" y="394" />
+  <node index="90" type="resource" resourceid="28" x="-45" y="385" />
+  <node index="91" type="resource" resourceid="2" x="-105" y="389" />
+  <node index="92" type="effect" effectid="48" x="-45" y="402" />
+  <node index="93" type="resource" resourceid="29" x="-122" y="426" />
+  <node index="94" type="effect" effectid="49" x="61" y="420" />
+  <node index="95" type="resource" resourceid="14" x="24" y="420" />
+  <node index="96" type="effect" effectid="50" x="-40" y="445" />
+  <node index="97" type="effect" effectid="51" x="60" y="443" />
+  <node index="98" type="effect" effectid="52" x="40" y="532" />
+  <node index="99" type="rendertarget" targetid="1" x="21" y="432" />
+  <node index="100" type="rendertarget" targetid="2" x="17" y="448" />
+  <node index="101" type="effect" effectid="53" x="-45" y="417" />
+  <node index="102" type="effect" effectid="54" x="-44" y="460" />
+  <node index="103" type="effect" effectid="55" x="15" y="345" />
+  <node index="104" type="resource" resourceid="30" x="-49" y="340" />
+  <node index="105" type="effect" effectid="56" x="-23" y="-95" />
+  <node index="106" type="effect" effectid="57" x="-59" y="30" />
+  <node index="107" type="resource" resourceid="31" x="-125" y="34" />
+  <node index="108" type="effect" effectid="58" x="-40" y="42" />
+  <node index="109" type="resource" resourceid="32" x="-85" y="49" />
+  <node index="110" type="effect" effectid="59" x="2" y="25" />
+  <node index="111" type="resource" resourceid="33" x="-26" y="22" />
+  <node index="112" type="effect" effectid="60" x="60" y="409" />
+  <node index="113" type="resource" resourceid="34" x="19" y="406" />
+  <nodeconnection index="164" source="91" target="101" targetinput="DX Shader" />
+  <nodeconnection index="153" source="91" target="96" targetinput="DX Shader" />
+  <nodeconnection index="148" source="91" target="92" targetinput="DX Shader" />
+  <nodeconnection index="169" source="91" target="102" targetinput="DX Shader" />
+  <nodeconnection index="165" source="93" target="101" targetinput="Assimp Scene" />
+  <nodeconnection index="152" source="93" target="96" targetinput="Assimp Scene" />
+  <nodeconnection index="147" source="93" target="92" targetinput="Assimp Scene" />
+  <nodeconnection index="168" source="93" target="102" targetinput="Assimp Scene" />
+  <nodeconnection index="57" source="4" target="39" targetinput="DX Shader" />
+  <nodeconnection index="59" source="4" target="41" targetinput="DX Shader" />
+  <nodeconnection index="56" source="40" target="39" targetinput="Assimp Scene" />
+  <nodeconnection index="58" source="42" target="41" targetinput="Assimp Scene" />
+  <nodeconnection index="92" source="53" target="60" targetinput="Assimp Scene" />
+  <nodeconnection index="85" source="53" target="58" targetinput="Assimp Scene" />
+  <nodeconnection index="80" source="53" target="56" targetinput="Assimp Scene" />
+  <nodeconnection index="76" source="53" target="54" targetinput="Assimp Scene" />
+  <nodeconnection index="74" source="53" target="49" targetinput="Assimp Scene" />
+  <nodeconnection index="90" source="50" target="60" targetinput="DX Shader" />
+  <nodeconnection index="86" source="50" target="58" targetinput="DX Shader" />
+  <nodeconnection index="81" source="50" target="56" targetinput="DX Shader" />
+  <nodeconnection index="75" source="50" target="54" targetinput="DX Shader" />
+  <nodeconnection index="70" source="50" target="49" targetinput="DX Shader" />
+  <nodeconnection index="130" source="83" target="81" targetinput="Assimp Scene" />
+  <nodeconnection index="127" source="80" target="79" targetinput="Assimp Scene" />
+  <nodeconnection index="140" source="77" target="86" targetinput="DX Shader" />
+  <nodeconnection index="131" source="77" target="81" targetinput="DX Shader" />
+  <nodeconnection index="126" source="77" target="79" targetinput="DX Shader" />
+  <nodeconnection index="124" source="77" target="72" targetinput="DX Shader" />
+  <nodeconnection index="119" source="73" target="72" targetinput="Assimp Scene" />
+  <nodeconnection index="143" source="88" target="86" targetinput="Assimp Scene" />
+  <nodeconnection index="160" source="92" target="99" targetinput="" />
+  <nodeconnection index="166" source="101" target="99" targetinput="" />
+  <nodeconnection index="162" source="96" target="100" targetinput="" />
+  <nodeconnection index="167" source="102" target="100" targetinput="" />
+  <nodeconnection index="65" source="46" target="45" targetinput="texInput" />
+  <nodeconnection index="64" source="19" target="45" targetinput="DX Shader" />
+  <nodeconnection index="173" source="13" target="105" targetinput="Assimp Scene" />
+  <nodeconnection index="45" source="32" target="31" targetinput="Assimp Scene" />
+  <nodeconnection index="46" source="34" target="33" targetinput="Assimp Scene" />
+  <nodeconnection index="51" source="36" target="35" targetinput="Assimp Scene" />
+  <nodeconnection index="54" source="38" target="37" targetinput="Assimp Scene" />
+  <nodeconnection index="31" source="24" target="26" targetinput="DX Shader" />
+  <nodeconnection index="182" source="4" target="108" targetinput="DX Shader" />
+  <nodeconnection index="179" source="4" target="106" targetinput="DX Shader" />
+  <nodeconnection index="29" source="4" target="21" targetinput="DX Shader" />
+  <nodeconnection index="174" source="4" target="105" targetinput="DX Shader" />
+  <nodeconnection index="47" source="4" target="33" targetinput="DX Shader" />
+  <nodeconnection index="19" source="4" target="14" targetinput="DX Shader" />
+  <nodeconnection index="21" source="4" target="16" targetinput="DX Shader" />
+  <nodeconnection index="44" source="4" target="31" targetinput="DX Shader" />
+  <nodeconnection index="50" source="4" target="35" targetinput="DX Shader" />
+  <nodeconnection index="53" source="4" target="37" targetinput="DX Shader" />
+  <nodeconnection index="186" source="4" target="110" targetinput="DX Shader" />
+  <nodeconnection index="33" source="25" target="26" targetinput="texNoise" />
+  <nodeconnection index="30" source="22" target="21" targetinput="Assimp Scene" />
+  <nodeconnection index="176" source="39" target="26" targetinput="texInput" />
+  <nodeconnection index="185" source="111" target="110" targetinput="Assimp Scene" />
+  <nodeconnection index="178" source="107" target="106" targetinput="Assimp Scene" />
+  <nodeconnection index="181" source="109" target="108" targetinput="Assimp Scene" />
+  <nodeconnection index="62" source="41" target="43" targetinput="texInput" />
+  <nodeconnection index="91" source="52" target="61" targetinput="DX Shader" />
+  <nodeconnection index="87" source="52" target="59" targetinput="DX Shader" />
+  <nodeconnection index="82" source="52" target="57" targetinput="DX Shader" />
+  <nodeconnection index="77" source="52" target="55" targetinput="DX Shader" />
+  <nodeconnection index="71" source="52" target="51" targetinput="DX Shader" />
+  <nodeconnection index="61" source="44" target="43" targetinput="DX Shader" />
+  <nodeconnection index="72" source="49" target="51" targetinput="texInput" />
+  <nodeconnection index="78" source="54" target="55" targetinput="texInput" />
+  <nodeconnection index="83" source="56" target="57" targetinput="texInput" />
+  <nodeconnection index="88" source="58" target="59" targetinput="texInput" />
+  <nodeconnection index="93" source="60" target="61" targetinput="texInput" />
+  <nodeconnection index="109" source="64" target="71" targetinput="DX Shader" />
+  <nodeconnection index="108" source="64" target="70" targetinput="DX Shader" />
+  <nodeconnection index="107" source="64" target="69" targetinput="DX Shader" />
+  <nodeconnection index="110" source="64" target="68" targetinput="DX Shader" />
+  <nodeconnection index="103" source="64" target="67" targetinput="DX Shader" />
+  <nodeconnection index="101" source="64" target="66" targetinput="DX Shader" />
+  <nodeconnection index="98" source="64" target="65" targetinput="DX Shader" />
+  <nodeconnection index="95" source="64" target="62" targetinput="DX Shader" />
+  <nodeconnection index="133" source="81" target="82" targetinput="texInput" />
+  <nodeconnection index="114" source="63" target="71" targetinput="texInput" />
+  <nodeconnection index="113" source="63" target="70" targetinput="texInput" />
+  <nodeconnection index="112" source="63" target="69" targetinput="texInput" />
+  <nodeconnection index="111" source="63" target="68" targetinput="texInput" />
+  <nodeconnection index="104" source="63" target="67" targetinput="texInput" />
+  <nodeconnection index="102" source="63" target="66" targetinput="texInput" />
+  <nodeconnection index="99" source="63" target="65" targetinput="texInput" />
+  <nodeconnection index="96" source="63" target="62" targetinput="texInput" />
+  <nodeconnection index="128" source="79" target="78" targetinput="texInput" />
+  <nodeconnection index="138" source="76" target="87" targetinput="DX Shader" />
+  <nodeconnection index="135" source="76" target="84" targetinput="DX Shader" />
+  <nodeconnection index="132" source="76" target="82" targetinput="DX Shader" />
+  <nodeconnection index="125" source="76" target="78" targetinput="DX Shader" />
+  <nodeconnection index="121" source="76" target="75" targetinput="DX Shader" />
+  <nodeconnection index="122" source="72" target="75" targetinput="texInput" />
+  <nodeconnection index="136" source="85" target="84" targetinput="texInput" />
+  <nodeconnection index="141" source="86" target="87" targetinput="texInput" />
+  <nodeconnection index="170" source="104" target="103" targetinput="Assimp Scene" />
+  <nodeconnection index="18" source="15" target="14" targetinput="Assimp Scene" />
+  <nodeconnection index="22" source="17" target="16" targetinput="Assimp Scene" />
+  <nodeconnection index="144" source="90" target="89" targetinput="Assimp Scene" />
+  <nodeconnection index="187" source="91" target="112" targetinput="DX Shader" />
+  <nodeconnection index="171" source="91" target="103" targetinput="DX Shader" />
+  <nodeconnection index="145" source="91" target="89" targetinput="DX Shader" />
+  <nodeconnection index="188" source="113" target="112" targetinput="Assimp Scene" />
+  <nodeconnection index="154" source="95" target="97" targetinput="DX Shader" />
+  <nodeconnection index="149" source="95" target="94" targetinput="DX Shader" />
+  <nodeconnection index="161" source="99" target="94" targetinput="texInput" />
+  <nodeconnection index="163" source="100" target="97" targetinput="texInput" />
+  <nodeconnection index="158" source="28" target="98" targetinput="Assimp Scene" />
+  <nodeconnection index="39" source="28" target="30" targetinput="Assimp Scene" />
+  <nodeconnection index="37" source="28" target="27" targetinput="Assimp Scene" />
+  <nodeconnection index="157" source="29" target="98" targetinput="DX Shader" />
+  <nodeconnection index="40" source="29" target="30" targetinput="DX Shader" />
+  <nodeconnection index="38" source="29" target="27" targetinput="DX Shader" />
+  <nodeconnection index="67" source="48" target="47" targetinput="DX Shader" />
+  <nodeconnection index="68" source="45" target="47" targetinput="texInput" />
+  <nodeconnection index="26" source="19" target="18" targetinput="DX Shader" />
+  <nodeconnection index="27" source="20" target="18" targetinput="texInput" />
+  <nodeconnection index="175" source="105" target="10" targetinput="" />
+  <nodeconnection index="43" source="31" target="10" targetinput="" />
+  <nodeconnection index="48" source="33" target="10" targetinput="" />
+  <nodeconnection index="49" source="35" target="10" targetinput="" />
+  <nodeconnection index="52" source="37" target="10" targetinput="" />
+  <nodeconnection index="34" source="26" target="10" targetinput="" />
+  <nodeconnection index="177" source="21" target="10" targetinput="" />
+  <nodeconnection index="184" source="110" target="10" targetinput="" />
+  <nodeconnection index="180" source="106" target="10" targetinput="" />
+  <nodeconnection index="183" source="108" target="10" targetinput="" />
+  <nodeconnection index="60" source="41" target="10" targetinput="" />
+  <nodeconnection index="63" source="43" target="10" targetinput="" />
+  <nodeconnection index="73" source="51" target="10" targetinput="" />
+  <nodeconnection index="79" source="55" target="10" targetinput="" />
+  <nodeconnection index="84" source="57" target="10" targetinput="" />
+  <nodeconnection index="89" source="59" target="10" targetinput="" />
+  <nodeconnection index="94" source="61" target="10" targetinput="" />
+  <nodeconnection index="97" source="62" target="10" targetinput="" />
+  <nodeconnection index="100" source="65" target="10" targetinput="" />
+  <nodeconnection index="105" source="66" target="10" targetinput="" />
+  <nodeconnection index="134" source="82" target="10" targetinput="" />
+  <nodeconnection index="106" source="67" target="10" targetinput="" />
+  <nodeconnection index="115" source="68" target="10" targetinput="" />
+  <nodeconnection index="116" source="69" target="10" targetinput="" />
+  <nodeconnection index="129" source="78" target="10" targetinput="" />
+  <nodeconnection index="117" source="70" target="10" targetinput="" />
+  <nodeconnection index="118" source="71" target="10" targetinput="" />
+  <nodeconnection index="123" source="75" target="10" targetinput="" />
+  <nodeconnection index="137" source="84" target="10" targetinput="" />
+  <nodeconnection index="142" source="87" target="10" targetinput="" />
+  <nodeconnection index="172" source="103" target="10" targetinput="" />
+  <nodeconnection index="17" source="14" target="10" targetinput="" />
+  <nodeconnection index="20" source="16" target="10" targetinput="" />
+  <nodeconnection index="146" source="89" target="10" targetinput="" />
+  <nodeconnection index="189" source="112" target="10" targetinput="" />
+  <nodeconnection index="151" source="94" target="10" targetinput="" />
+  <nodeconnection index="156" source="97" target="10" targetinput="" />
+  <nodeconnection index="36" source="27" target="10" targetinput="" />
+  <nodeconnection index="41" source="30" target="10" targetinput="" />
+  <nodeconnection index="159" source="98" target="10" targetinput="" />
+  <nodeconnection index="66" source="45" target="10" targetinput="" />
+  <nodeconnection index="69" source="47" target="10" targetinput="" />
+  <nodeconnection index="28" source="18" target="10" targetinput="" />
+  <nodeconnection index="12" source="12" target="11" targetinput="DX Shader" />
+  <nodeconnection index="25" source="10" target="11" targetinput="texInput" />
+  <nodeconnection index="14" source="11" target="1" targetinput="" />
+  <effect index="3" effectfuid="layer" name="New Effect: layer 2">
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="4" effectfuid="assimprenderer" name="city">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="47354" length="7559">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="7559" value="0.336842" interpolation="linear" />
+      </clip>
+      <clip start="54913" length="7559">
+        <point time="0" value="0.635088" interpolation="linear" />
+        <point time="7559" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="3" name="camera">
+      <clip start="47354" length="7559">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+      <clip start="54913" length="7559">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="5" effectfuid="assimprenderer" name="city 2">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="62472" length="15118">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="15118" value="1" interpolation="linear" />
+      </clip>
+      <clip start="77590" length="15118">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="15118" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="3" name="camera">
+      <clip start="62472" length="15118">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+      <clip start="77590" length="15118">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="6" effectfuid="layer" name="flash">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="47354" length="7559">
+        <point time="0" value="1" interpolation="fast" />
+        <point time="3779" value="0" interpolation="smooth" />
+      </clip>
+      <clip start="0" length="2000">
+        <point time="0" value="0" interpolation="fast" />
+        <point time="1000" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="24677" length="3779">
+        <point time="-2000" value="0" interpolation="fast" />
+        <point time="0" value="0" interpolation="smooth" />
+      </clip>
+      <clip start="100267" length="7559">
+        <point time="-2000" value="0" interpolation="fast" />
+        <point time="0" value="0" interpolation="smooth" />
+      </clip>
+      <clip start="107826" length="7559">
+        <point time="-2000" value="0" interpolation="fast" />
+        <point time="0" value="0" interpolation="smooth" />
+        <point time="7204" value="0" interpolation="slow" />
+        <point time="7559" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="115385" length="5670">
+        <point time="-2000" value="0" interpolation="fast" />
+        <point time="0" value="1" interpolation="fast" />
+        <point time="1181" value="0" interpolation="smooth" />
+      </clip>
+      <clip start="28456" length="3780">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="1890" value="1" interpolation="linear" />
+        <point time="3780" value="0" interpolation="smooth" />
+      </clip>
+      <clip start="122944" length="7560">
+        <point time="-2000" value="0" interpolation="fast" />
+        <point time="0" value="0" interpolation="smooth" />
+        <point time="5670" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="85149" length="7559">
+        <point time="-2000" value="0" interpolation="fast" />
+        <point time="0" value="0" interpolation="smooth" />
+        <point time="6614" value="0" interpolation="slow" />
+        <point time="7559" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="45464" length="1890">
+        <point time="-7669" value="0" interpolation="fast" />
+        <point time="-5669" value="0" interpolation="smooth" />
+        <point time="945" value="0" interpolation="slow" />
+        <point time="1890" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="20897" length="3780">
+        <point time="-5779" value="0" interpolation="fast" />
+        <point time="-3779" value="0" interpolation="smooth" />
+      </clip>
+      <clip start="121290" length="118">
+        <point time="-709" value="0.614243" interpolation="hold" />
+        <point time="0" value="1" interpolation="hold" />
+        <point time="354" value="0.813056" interpolation="hold" />
+        <point time="1181" value="0.85" interpolation="hold" />
+        <point time="1889" value="0.890208" interpolation="hold" />
+        <point time="2362" value="0.991098" interpolation="smooth" />
+      </clip>
+      <clip start="121644" length="119">
+        <point time="-709" value="0.614243" interpolation="hold" />
+        <point time="0" value="1" interpolation="hold" />
+        <point time="354" value="0.813056" interpolation="hold" />
+        <point time="1181" value="0.85" interpolation="hold" />
+        <point time="1889" value="0.890208" interpolation="hold" />
+        <point time="2362" value="0.991098" interpolation="smooth" />
+      </clip>
+      <clip start="121999" length="118">
+        <point time="-709" value="0.614243" interpolation="hold" />
+        <point time="0" value="1" interpolation="hold" />
+        <point time="354" value="0.813056" interpolation="hold" />
+        <point time="1181" value="0.85" interpolation="hold" />
+        <point time="1889" value="0.890208" interpolation="hold" />
+        <point time="2362" value="0.991098" interpolation="smooth" />
+      </clip>
+      <clip start="122353" length="118">
+        <point time="-709" value="0.614243" interpolation="hold" />
+        <point time="0" value="1" interpolation="hold" />
+        <point time="354" value="0.813056" interpolation="hold" />
+        <point time="1181" value="0.85" interpolation="hold" />
+        <point time="1889" value="0.890208" interpolation="hold" />
+        <point time="2362" value="0.991098" interpolation="smooth" />
+      </clip>
+      <clip start="122589" length="118">
+        <point time="-709" value="0.614243" interpolation="hold" />
+        <point time="0" value="1" interpolation="hold" />
+        <point time="354" value="0.813056" interpolation="hold" />
+        <point time="1181" value="0.85" interpolation="hold" />
+        <point time="1889" value="0.890208" interpolation="hold" />
+        <point time="2362" value="0.991098" interpolation="smooth" />
+      </clip>
+      <clip start="122826" length="118">
+        <point time="-709" value="0.614243" interpolation="hold" />
+        <point time="0" value="1" interpolation="hold" />
+        <point time="354" value="0.813056" interpolation="hold" />
+        <point time="1181" value="0.85" interpolation="hold" />
+        <point time="1889" value="0.890208" interpolation="hold" />
+        <point time="2362" value="0.991098" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="7" effectfuid="assimprenderer" name="3d switch">
+    <parameter type="simplespline" rangemin="0" rangemax="0.2" name="time">
+      <clip start="16645" length="473">
+        <point time="0" value="0" interpolation="fast" />
+        <point time="236" value="0.02" interpolation="linear" />
+        <point time="473" value="0.02" interpolation="linear" />
+        <point time="591" value="0.04" interpolation="smooth" />
+      </clip>
+      <clip start="17118" length="3307">
+        <point time="-473" value="0" interpolation="linear" />
+        <point time="-237" value="0.02" interpolation="linear" />
+        <point time="0" value="0.02" interpolation="linear" />
+        <point time="118" value="0.04" interpolation="smooth" />
+        <point time="354" value="0.0527273" interpolation="linear" />
+        <point time="472" value="0.0642424" interpolation="smooth" />
+        <point time="1181" value="0.075" interpolation="fast" />
+        <point time="1299" value="0.09" interpolation="smooth" />
+        <point time="1417" value="0.090411" interpolation="fast" />
+        <point time="1535" value="0.1125" interpolation="smooth" />
+        <point time="1889" value="0.121356" interpolation="linear" />
+        <point time="2007" value="0.137627" interpolation="smooth" />
+        <point time="2362" value="0.153435" interpolation="fast" />
+        <point time="2480" value="0.165" interpolation="smooth" />
+        <point time="2716" value="0.166412" interpolation="fast" />
+        <point time="2775" value="0.178" interpolation="smooth" />
+        <point time="3070" value="0.178" interpolation="fast" />
+        <point time="3129" value="0.19" interpolation="smooth" />
+        <point time="3307" value="0.19" interpolation="smooth" />
+        <point time="3307" value="0.02" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="a8r8g8b8" depth="d24x8" size="3840x2160" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="8" effectfuid="layer" name="noisecrunch">
+    <parameter type="simplespline" rangemin="0" rangemax="0.3" name="fWidth">
+      <clip start="20425" length="472">
+        <point time="0" value="0.121212" interpolation="fast" />
+        <point time="118" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fTime">
+      <clip start="20425" length="236">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="236" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="a8r8g8b8" depth="d24x8" size="3840x2160" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="9" effectfuid="assimprenderer" name="overlay-topleft">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="32236" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="36015" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="39794" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="43573" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="77590" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="85149" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="107826" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="92708" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="10" effectfuid="assimprenderer" name="overlay-bottomright">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="39795" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="43574" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="77590" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="85149" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="11" effectfuid="assimprenderer" name="intro 2">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="9559" length="1181">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="59" value="0.0864198" interpolation="hold" />
+        <point time="118" value="0.0946502" interpolation="linear" />
+        <point time="177" value="0.18107" interpolation="linear" />
+        <point time="236" value="0.18107" interpolation="linear" />
+        <point time="295" value="0.27572" interpolation="hold" />
+        <point time="708" value="0.27572" interpolation="linear" />
+        <point time="767" value="0.374486" interpolation="hold" />
+        <point time="826" value="0.378601" interpolation="linear" />
+        <point time="885" value="0.497942" interpolation="hold" />
+        <point time="1003" value="0.502058" interpolation="linear" />
+        <point time="1063" value="0.565826" interpolation="smooth" />
+      </clip>
+      <clip start="121054" length="236">
+        <point time="0" value="0.401747" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="12" effectfuid="assimprenderer" name="intro 2b">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="10740" length="2598">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="59" value="0.0616114" interpolation="hold" />
+        <point time="413" value="0.0616114" interpolation="linear" />
+        <point time="472" value="0.151786" interpolation="hold" />
+        <point time="649" value="0.156398" interpolation="linear" />
+        <point time="708" value="0.270142" interpolation="hold" />
+        <point time="767" value="0.274882" interpolation="linear" />
+        <point time="826" value="0.374408" interpolation="hold" />
+        <point time="885" value="0.374408" interpolation="linear" />
+        <point time="945" value="0.459716" interpolation="hold" />
+        <point time="1358" value="0.459716" interpolation="linear" />
+        <point time="1417" value="0.559242" interpolation="hold" />
+        <point time="1476" value="0.554502" interpolation="linear" />
+        <point time="1535" value="0.701422" interpolation="smooth" />
+        <point time="1771" value="0.699634" interpolation="linear" />
+        <point time="1830" value="0.763033" interpolation="smooth" />
+        <point time="1889" value="0.763736" interpolation="linear" />
+        <point time="1948" value="0.851648" interpolation="smooth" />
+        <point time="2421" value="0.849817" interpolation="linear" />
+        <point time="2480" value="0.950549" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="13" effectfuid="assimprenderer" name="intro 2c">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="13338" length="1890">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="118" value="0.0833333" interpolation="smooth" />
+        <point time="709" value="0.0876623" interpolation="linear" />
+        <point time="768" value="0.168831" interpolation="smooth" />
+        <point time="827" value="0.172078" interpolation="linear" />
+        <point time="886" value="0.275974" interpolation="smooth" />
+        <point time="1063" value="0.275974" interpolation="linear" />
+        <point time="1122" value="0.357143" interpolation="smooth" />
+        <point time="1181" value="0.357143" interpolation="linear" />
+        <point time="1240" value="0.454545" interpolation="linear" />
+        <point time="1654" value="0.49026" interpolation="linear" />
+        <point time="1772" value="0.542208" interpolation="smooth" />
+      </clip>
+      <clip start="15228" length="709">
+        <point time="0" value="0.542208" interpolation="linear" />
+        <point time="59" value="0.668831" interpolation="smooth" />
+        <point time="118" value="0.694805" interpolation="linear" />
+        <point time="177" value="0.775974" interpolation="linear" />
+        <point time="236" value="0.775974" interpolation="linear" />
+        <point time="295" value="0.857143" interpolation="linear" />
+      </clip>
+      <clip start="121763" length="236">
+        <point time="0" value="0.775862" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="14" effectfuid="assimprenderer" name="intro 2d">
+    <parameter type="simplespline" rangemin="0" rangemax="0.5" name="time">
+      <clip start="15937" length="708">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="60" value="0.0957096" interpolation="linear" />
+        <point time="119" value="0.0957096" interpolation="linear" />
+        <point time="178" value="0.138614" interpolation="smooth" />
+        <point time="237" value="0.145215" interpolation="linear" />
+        <point time="355" value="0.188119" interpolation="linear" />
+        <point time="414" value="0.287129" interpolation="linear" />
+        <point time="472" value="0.353135" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="15" effectfuid="assimprenderer" name="3d switch b">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="20897" length="945">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="236" value="0.248175" interpolation="slow" />
+        <point time="709" value="0.505474" interpolation="smooth" />
+      </clip>
+      <clip start="121408" length="237">
+        <point time="0" value="0.5" interpolation="linear" />
+      </clip>
+      <clip start="20425" length="472">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="16" effectfuid="assimprenderer" name="smack">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="28456" length="3780">
+        <point time="0" value="0.407407" interpolation="linear" />
+      </clip>
+      <clip start="122471" length="118">
+        <point time="0" value="0.407407" interpolation="linear" />
+      </clip>
+      <clip start="122707" length="118">
+        <point time="0" value="0.407407" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="17" effectfuid="layer" name="smackzoom">
+    <parameter type="static" name="fScaleX">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="2" name="fZoom">
+      <clip start="28456" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="28810" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="29164" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="29519" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="29873" length="473">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="473" value="2" interpolation="linear" />
+      </clip>
+      <clip start="30346" length="472">
+        <point time="0" value="2" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="30818" length="354">
+        <point time="0" value="2" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+      <clip start="31173" length="354">
+        <point time="0" value="2" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+      <clip start="31527" length="354">
+        <point time="0" value="2" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+      <clip start="31881" length="354">
+        <point time="0" value="2" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="28456" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="28810" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="29164" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="29519" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="29873" length="473">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="473" value="0" interpolation="linear" />
+      </clip>
+      <clip start="30346" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="30818" length="354">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+      <clip start="31172" length="354">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+      <clip start="31526" length="354">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+      <clip start="31880" length="354">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="354" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="18" effectfuid="layer" name="title">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="122944" length="7560">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="19" effectfuid="layer" name="title smackzoom">
+    <parameter type="static" name="fScaleX">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="2" name="fZoom">
+      <clip start="122944" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="123298" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="123652" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="124006" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="124360" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="124715" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="125069" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="125423" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="125777" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="126131" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="126485" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="126839" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="127193" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="127547" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="127901" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+      <clip start="128255" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="2" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="122944" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="123298" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="123652" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="124006" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="124360" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="124715" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="125069" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="125423" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="125777" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="126131" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="126485" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="126839" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="127193" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="127547" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="127901" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+      <clip start="128255" length="354">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="354" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="20" effectfuid="assimprenderer" name="loop02 a">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="32236" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="33181" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="34126" length="945">
+        <point time="473" value="0" interpolation="linear" />
+        <point time="709" value="1" interpolation="linear" />
+      </clip>
+      <clip start="35070" length="945">
+        <point time="473" value="0" interpolation="linear" />
+        <point time="709" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="21" effectfuid="layer" name="loop02 a pan">
+    <parameter type="static" name="fScaleX">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="22" effectfuid="assimprenderer" name="loop02 b">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="32236" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="33181" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="34126" length="945">
+        <point time="414" value="0" interpolation="linear" />
+        <point time="650" value="1" interpolation="linear" />
+      </clip>
+      <clip start="35070" length="945">
+        <point time="414" value="0" interpolation="linear" />
+        <point time="650" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="23" effectfuid="layer" name="loop02 b pan">
+    <parameter type="static" name="fScaleX">
+      <static value="0.8" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="24" effectfuid="assimprenderer" name="loop02 c">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="32236" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="33181" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="34126" length="945">
+        <point time="355" value="0" interpolation="linear" />
+        <point time="591" value="1" interpolation="linear" />
+      </clip>
+      <clip start="35070" length="945">
+        <point time="355" value="0" interpolation="linear" />
+        <point time="591" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="25" effectfuid="layer" name="loop02 c pan">
+    <parameter type="static" name="fScaleX">
+      <static value="0.6" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="26" effectfuid="assimprenderer" name="loop02 d">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="32236" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="33181" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="34126" length="945">
+        <point time="295" value="0" interpolation="linear" />
+        <point time="532" value="1" interpolation="linear" />
+      </clip>
+      <clip start="35070" length="945">
+        <point time="295" value="0" interpolation="linear" />
+        <point time="532" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="27" effectfuid="layer" name="loop02 d pan">
+    <parameter type="static" name="fScaleX">
+      <static value="0.4" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="28" effectfuid="assimprenderer" name="loop02 e">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="32236" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="33181" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="34126" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="35070" length="945">
+        <point time="236" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="29" effectfuid="layer" name="loop02 e pan">
+    <parameter type="static" name="fScaleX">
+      <static value="0.2" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="30" effectfuid="layer" name="blackbar 1r">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0.2" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34126" length="1889">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="31" effectfuid="layer" name="blackbar 1l">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="-0.2" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34126" length="1889">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="32" effectfuid="layer" name="blackbar 2r">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0.4" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34243" length="1772">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="33" effectfuid="layer" name="blackbar 2l">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="-0.4" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34243" length="1772">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="34" effectfuid="layer" name="blackbar 3r">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0.6" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34362" length="1653">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="35" effectfuid="layer" name="blackbar 3l">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="-0.6" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34362" length="1653">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="36" effectfuid="layer" name="blackbar 4r">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0.8" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34480" length="1535">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="37" effectfuid="layer" name="blackbar 4l">
+    <parameter type="static" name="fScaleX">
+      <static value="0.01" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="-0.8" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fAlpha">
+      <clip start="34480" length="1535">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="38" effectfuid="assimprenderer" name="loop03">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="36015" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="35543" length="472">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+      <clip start="37905" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="39795" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="41685" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="43574" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="45464" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="39" effectfuid="layer" name="loop03 pan">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fScaleX">
+      <clip start="35543" length="11811">
+        <point time="0" value="1" interpolation="linear" />
+        <point time="2716" value="1" interpolation="linear" />
+        <point time="2834" value="0.5" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="1" />
+    </parameter>
+    <parameter type="simplespline" rangemin="-1" rangemax="2" name="fPosX">
+      <clip start="35543" length="11811">
+        <point time="0" value="2" interpolation="linear" />
+        <point time="472" value="0" interpolation="linear" />
+        <point time="2716" value="0" interpolation="linear" />
+        <point time="2834" value="-0.5" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="1920x1080" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="40" effectfuid="layer" name="loop01 pan">
+    <parameter type="static" name="fScaleX">
+      <static value="0.495" />
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="2" name="fScaleY">
+      <clip start="37905" length="9449">
+        <point time="2244" value="1" interpolation="linear" />
+        <point time="2362" value="0.495" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="2" name="fPosX">
+      <clip start="37905" length="9449">
+        <point time="0" value="1.5" interpolation="linear" />
+        <point time="354" value="1.5" interpolation="linear" />
+        <point time="472" value="0.505" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fPosY">
+      <clip start="37905" length="9449">
+        <point time="2244" value="0" interpolation="linear" />
+        <point time="2362" value="0.505" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="1920x1080" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="41" effectfuid="assimprenderer" name="loop01">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="37905" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="38377" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="38849" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="39321" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="39795" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="40267" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="40739" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="41211" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="41683" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="42155" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="42627" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="43099" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="43574" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="44046" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="44518" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="44990" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="45462" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="45934" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="46406" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+      <clip start="46878" length="472">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="42" effectfuid="assimprenderer" name="loop04">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="39795" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="41685" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="43574" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+      <clip start="45464" length="1890">
+        <point time="354" value="0" interpolation="linear" />
+        <point time="473" value="0.5" interpolation="linear" />
+        <point time="1299" value="0.5" interpolation="linear" />
+        <point time="1417" value="1" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="43" effectfuid="layer" name="loop04 pan">
+    <parameter type="static" name="fScaleX">
+      <static value="0.495" />
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="0.495" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0.505" />
+    </parameter>
+    <parameter type="simplespline" rangemin="-2" rangemax="0" name="fPosY">
+      <clip start="39795" length="7559">
+        <point time="354" value="-1.5" interpolation="linear" />
+        <point time="472" value="-0.505" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="44" effectfuid="layer" name="outline">
+    <parameter type="simplespline" rangemin="0" rangemax="0.5" name="fScaleX">
+      <clip start="43574" length="3780">
+        <point time="0" value="0.0909091" interpolation="hold" />
+        <point time="118" value="0.245455" interpolation="hold" />
+        <point time="236" value="0.363636" interpolation="hold" />
+        <point time="354" value="0.5" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="0.5" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="45" effectfuid="assimprenderer" name="loop05">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="43574" length="3780">
+        <point time="0" value="0" interpolation="hold" />
+        <point time="1831" value="0" interpolation="fast" />
+        <point time="1890" value="0.2" interpolation="smooth" />
+        <point time="1949" value="0.2" interpolation="fast" />
+        <point time="2008" value="0.4" interpolation="smooth" />
+        <point time="2067" value="0.4" interpolation="fast" />
+        <point time="2126" value="0.6" interpolation="smooth" />
+        <point time="2185" value="0.6" interpolation="fast" />
+        <point time="2244" value="0.8" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="46" effectfuid="layer" name="loop05 pan">
+    <parameter type="simplespline" rangemin="0" rangemax="0.5" name="fScaleX">
+      <clip start="43574" length="3780">
+        <point time="0" value="0.0773196" interpolation="hold" />
+        <point time="118" value="0.234649" interpolation="hold" />
+        <point time="236" value="0.355263" interpolation="hold" />
+        <point time="354" value="0.489035" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fScaleY">
+      <static value="0.485" />
+    </parameter>
+    <parameter type="static" name="fPosX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fPosY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetX">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="0.5" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="47" effectfuid="assimprenderer" name="city zuz">
+    <parameter type="simplespline" rangemin="0" rangemax="0.5" name="time">
+      <clip start="92708" length="7559">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="118" value="0.0269122" interpolation="smooth" />
+        <point time="472" value="0.0276204" interpolation="fast" />
+        <point time="590" value="0.0410765" interpolation="smooth" />
+        <point time="1181" value="0.0410765" interpolation="linear" />
+        <point time="1299" value="0.0616147" interpolation="linear" />
+        <point time="1417" value="0.0616147" interpolation="linear" />
+        <point time="1535" value="0.075" interpolation="smooth" />
+        <point time="1889" value="0.075" interpolation="linear" />
+        <point time="2007" value="0.0913598" interpolation="linear" />
+        <point time="2244" value="0.108357" interpolation="linear" />
+        <point time="2362" value="0.112606" interpolation="smooth" />
+        <point time="2716" value="0.124646" interpolation="linear" />
+        <point time="2834" value="0.136686" interpolation="smooth" />
+        <point time="2952" value="0.13881" interpolation="linear" />
+        <point time="3070" value="0.166431" interpolation="smooth" />
+        <point time="3189" value="0.180595" interpolation="linear" />
+        <point time="3307" value="0.19051" interpolation="smooth" />
+        <point time="3425" value="0.199008" interpolation="slow" />
+        <point time="4252" value="0.213158" interpolation="smooth" />
+        <point time="5078" value="0.224507" interpolation="linear" />
+        <point time="5196" value="0.2375" interpolation="smooth" />
+        <point time="5669" value="0.249671" interpolation="slow" />
+        <point time="6141" value="0.263487" interpolation="smooth" />
+        <point time="6378" value="0.264474" interpolation="linear" />
+        <point time="6496" value="0.285526" interpolation="smooth" />
+        <point time="6614" value="0.286842" interpolation="linear" />
+        <point time="6732" value="0.314474" interpolation="linear" />
+        <point time="6850" value="0.336842" interpolation="linear" />
+        <point time="6968" value="0.355263" interpolation="linear" />
+        <point time="7086" value="0.388158" interpolation="linear" />
+        <point time="7204" value="0.416941" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="48" effectfuid="assimprenderer" name="city loop 1">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="107826" length="3780">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="3780" value="0.125" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="49" effectfuid="layer" name="city loop 1 pan">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fScaleX">
+      <clip start="107826" length="3780">
+        <point time="1653" value="1" interpolation="linear" />
+        <point time="1889" value="0.495" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fScaleY">
+      <clip start="107826" length="3780">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="0.495" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="-0.505" rangemax="1" name="fPosX">
+      <clip start="107826" length="3780">
+        <point time="1653" value="0" interpolation="linear" />
+        <point time="1889" value="-0.505" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fPosY">
+      <clip start="107826" length="3780">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="-0.505" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="-0.505" rangemax="1" name="fOffsetX">
+      <clip start="107826" length="3780">
+        <point time="1653" value="0" interpolation="linear" />
+        <point time="1889" value="0.25" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="64x64" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="50" effectfuid="assimprenderer" name="city loop 2">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="107826" length="3780">
+        <point time="0" value="0.125" interpolation="linear" />
+        <point time="3780" value="0" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="3840x2160" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="51" effectfuid="layer" name="city loop 2 pan">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fScaleX">
+      <clip start="107826" length="3780">
+        <point time="1653" value="0" interpolation="linear" />
+        <point time="1889" value="0.495" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fScaleY">
+      <clip start="107826" length="3780">
+        <point time="0" value="1" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="0.495" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="fPosX">
+      <clip start="107826" length="3780">
+        <point time="1653" value="1" interpolation="linear" />
+        <point time="1889" value="0.5" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="-0.505" rangemax="1" name="fPosY">
+      <clip start="107826" length="3780">
+        <point time="0" value="0" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3780">
+        <point time="0" value="0.505" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="simplespline" rangemin="-0.25" rangemax="1" name="fOffsetX">
+      <clip start="107826" length="3780">
+        <point time="1653" value="-0" interpolation="linear" />
+        <point time="1890" value="-0.245" interpolation="hold" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="fOffsetY">
+      <static value="0" />
+    </parameter>
+    <parameter type="static" name="fZoom">
+      <static value="1" />
+    </parameter>
+    <parameter type="static" name="fAlpha">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="52" effectfuid="assimprenderer" name="overlay-topright">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="107826" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="111606" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="100267" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+      <clip start="104046" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="472" value="0.1" interpolation="smooth" />
+        <point time="1830" value="0.0986842" interpolation="linear" />
+        <point time="2303" value="0" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="3" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="53" effectfuid="assimprenderer" name="city loop 2a">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="111606" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="3779" value="0.458333" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="1" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="54" effectfuid="assimprenderer" name="city loop 2b">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="111606" length="3779">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="3779" value="0.833333" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="2" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="55" effectfuid="assimprenderer" name="city end">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="115385" length="5669">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="5669" value="0.786885" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="56" effectfuid="assimprenderer" name="intro">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="2000" length="3779">
+        <point time="0" value="0.0207715" interpolation="hold" />
+        <point time="708" value="0.041543" interpolation="hold" />
+        <point time="1062" value="0.183976" interpolation="hold" />
+        <point time="1889" value="0.323442" interpolation="hold" />
+        <point time="2598" value="0.41543" interpolation="hold" />
+        <point time="2952" value="0.513353" interpolation="smooth" />
+      </clip>
+      <clip start="5779" length="3780">
+        <point time="0" value="0.614243" interpolation="hold" />
+        <point time="709" value="0.703264" interpolation="hold" />
+        <point time="1063" value="0.813056" interpolation="hold" />
+        <point time="1890" value="0.85" interpolation="hold" />
+        <point time="2598" value="0.890208" interpolation="hold" />
+        <point time="3071" value="0.991098" interpolation="smooth" />
+      </clip>
+      <clip start="122117" length="236">
+        <point time="0" value="0.704545" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="57" effectfuid="assimprenderer" name="3d switch c">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="21842" length="2835">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="118" value="0.0329114" interpolation="smooth" />
+        <point time="236" value="0.0335443" interpolation="linear" />
+        <point time="354" value="0.0797468" interpolation="smooth" />
+        <point time="472" value="0.0944444" interpolation="linear" />
+        <point time="591" value="0.5" interpolation="smooth" />
+        <point time="827" value="0.546816" interpolation="linear" />
+        <point time="945" value="0.58104" interpolation="linear" />
+        <point time="1713" value="0.649333" interpolation="linear" />
+        <point time="1772" value="0.671333" interpolation="smooth" />
+        <point time="1949" value="0.670667" interpolation="linear" />
+        <point time="2008" value="0.698" interpolation="smooth" />
+        <point time="2067" value="0.698667" interpolation="linear" />
+        <point time="2126" value="0.724" interpolation="smooth" />
+        <point time="2185" value="0.724" interpolation="linear" />
+        <point time="2244" value="0.75" interpolation="linear" />
+        <point time="2303" value="0.75" interpolation="linear" />
+        <point time="2362" value="0.776" interpolation="smooth" />
+        <point time="2539" value="0.776" interpolation="smooth" />
+        <point time="2598" value="0.807333" interpolation="smooth" />
+        <point time="2835" value="0.806667" interpolation="smooth" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="58" effectfuid="assimprenderer" name="3d switch z">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="26684" length="1772">
+        <point time="-118" value="0" interpolation="linear" />
+        <point time="0" value="0.0351852" interpolation="smooth" />
+        <point time="119" value="0.0490741" interpolation="linear" />
+        <point time="355" value="0.0796296" interpolation="smooth" />
+        <point time="473" value="0.1" interpolation="linear" />
+        <point time="709" value="0.15" interpolation="linear" />
+        <point time="827" value="0.193519" interpolation="linear" />
+        <point time="1063" value="0.25463" interpolation="linear" />
+        <point time="1182" value="0.259259" interpolation="linear" />
+        <point time="1300" value="0.753086" interpolation="smooth" />
+      </clip>
+      <clip start="26448" length="236">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="236" value="0.0354938" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="59" effectfuid="assimprenderer" name="3d switch d">
+    <parameter type="simplespline" rangemin="0" rangemax="0.5" name="time">
+      <clip start="24677" length="1771">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="118" value="0.075" interpolation="smooth" />
+        <point time="354" value="0.075" interpolation="linear" />
+        <point time="472" value="0.157088" interpolation="smooth" />
+        <point time="1063" value="0.195402" interpolation="linear" />
+        <point time="1181" value="0.256705" interpolation="smooth" />
+        <point time="1771" value="0.275862" interpolation="linear" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  <effect index="60" effectfuid="assimprenderer" name="city zuz 2">
+    <parameter type="simplespline" rangemin="0" rangemax="1" name="time">
+      <clip start="100267" length="7559">
+        <point time="0" value="0" interpolation="linear" />
+        <point time="708" value="0.0861423" interpolation="smooth" />
+        <point time="945" value="0.0853933" interpolation="linear" />
+        <point time="1417" value="0.183521" interpolation="linear" />
+        <point time="4370" value="0.573034" interpolation="linear" />
+        <point time="4724" value="0.674157" interpolation="linear" />
+        <point time="6378" value="0.826219" interpolation="hold" />
+        <point time="6614" value="0.853049" interpolation="hold" />
+        <point time="6732" value="0.866463" interpolation="hold" />
+        <point time="6850" value="0.878049" interpolation="hold" />
+        <point time="7086" value="0.894512" interpolation="hold" />
+      </clip>
+    </parameter>
+    <parameter type="static" name="camera">
+      <static value="0" />
+    </parameter>
+    <output>
+      <rendertarget color="x8r8g8b8" depth="d24x8" size="demo" clearOnFrameStart="true" />
+    </output>
+  </effect>
+  </demo>

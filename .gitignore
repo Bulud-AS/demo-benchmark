@@ -1,0 +1,17 @@
+/Demo Benchmark.exe
+/results/
+/error.log
+/dist/
+/work/
+/outputs/
+/.vs/
+/.idea/
+/.zig-cache/
+/zig-out/
+/runtime/*.lib
+*.pdb
+*.user
+*.suo
+*.tmp
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,20 @@
+{
+  "original": {
+    "url": "https://github.com/mtuomi/SecondReality",
+    "revision": "071a82eddb7a7390dbaa491a8a473e0e923a55c2"
+  },
+  "port": {
+    "url": "https://github.com/XorJS/SecondRealityPlusPlus",
+    "revision": "5827f3e085d75bcc70710068b8b6cc1201dccd60"
+  },
+  "archiveSha256": {
+    "original.zip": "aeab794f5b16bcc1160a926fd6995c0382d54d0128fd23dbfad9ca37cff0044d",
+    "port.zip": "f9d37dfa7c4d65520d718ba0755a4afe54c20bec8b401e07f5c5e08dc7047ed7"
+  },
+  "compiler": "Zig 0.15.2 / x86_64-windows-gnu C++20 O2",
+  "workload": "original software effects + independent uncapped GPU presentation",
+  "quality": {
+    "original": "nearest / 640x480 presentation target",
+    "enhanced": "16-tap Catmull-Rom / 1440x1080 presentation target"
+  }
+}

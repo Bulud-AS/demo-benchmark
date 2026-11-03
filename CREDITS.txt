@@ -1,0 +1,43 @@
+﻿Median — Ümlaüt Design / Gargaj, 2016
+Original visuals, models, animation, camera paths, textures and music: their original authors.
+https://gargaj.umlaut.hu/prods/median/
+https://www.pouet.net/prod.php?which=67384
+https://ftp.scene.org/pub/demos/groups/umlaut_design/ud_mdn.zip
+
+Demo Benchmark adds independent rendering, curved sphere LODs, PCM playback,
+quality controls, GPU/frame measurements and local benchmark scoring.
+The soundtrack is decoded from the user-supplied recording. Original assets
+remain the property of their authors. This package is for the user's local use.
+Original engine binaries and PluginAssimp are not included or loaded.
+
+ANGLE — The ANGLE Project Authors, BSD-style license.
+https://chromium.googlesource.com/angle/angle/
+Source revision: 3b89d84e9d59f75675ac4e2bef58fc068a9f0577
+Windows shared-library build: dsafdsaf132/angle-prebuilt
+https://github.com/dsafdsaf132/angle-prebuilt/releases/tag/angle-stable-chrome-156.0.8078.48-3b89d84
+Build information and licenses are retained under notices/ and runtime/angle-hardware/.
+Vulkan Loader — Khronos Group and contributors. License retained in notices/.
+The bundled runtime contains libEGL.dll, libGLESv2.dll and vulkan-1.dll.
+The system supplies its Direct3D shader compiler. SwiftShader is not bundled.
+
+The original Assimp binary format was read from its published documentation.
+No Assimp runtime is used. Its notice is retained in notices/ASSIMP-LICENSE.txt.
+
+
+Second Reality — Future Crew, 1993 (Unlicense / public domain)
+Original source and data: https://github.com/mtuomi/SecondReality
+Revision: 071a82eddb7a7390dbaa491a8a473e0e923a55c2
+Code: Sami "PSI" Tammilehto, Mika "Trug" Tuomi, Arto "Wildfire" Vuori.
+Music: Skaven and Purple Motion; graphics and design: Future Crew and the original demo credits.
+Windows C++ source port: Second Reality++ by XorJS / JSR Productions.
+https://github.com/XorJS/SecondRealityPlusPlus
+Revision: 5827f3e085d75bcc70710068b8b6cc1201dccd60
+Based on Gargaj / Conspiracy's Win32 port: https://github.com/ConspiracyHu/SecondRealityW32
+Scream Tracker replayer: st3play v1.01 by Olav "8bitbubsy" Sorensen, using original
+Future Crew playback code. Source acknowledgements and notices are retained.
+Demo Benchmark adaptations: isolated native worker, bounded shared-memory frame transfer,
+parent-lifetime checks, independent GPU presentation, nearest / Catmull-Rom scaling,
+first-scroll-cycle completion, measurement and sound recovery.
+The original effect rasterizers and tracker replayer remain software implementations.
+This is a presentation / compatibility workload; it does not convert those effects
+to native GPU geometry or add a higher-detail 3D remaster.

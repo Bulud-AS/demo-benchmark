@@ -1,0 +1,28 @@
+{
+  "uniqueSphereGeometries": 2,
+  "sphereMeshInstances": 54,
+  "geometries": [
+    {
+      "geometry": "52b893a9358134a8",
+      "radius": 74.99999887125284,
+      "triangles": [
+        394,
+        1576,
+        6304,
+        25216,
+        100864
+      ]
+    },
+    {
+      "geometry": "81cd0d074a1faf83",
+      "radius": 75.56693184189513,
+      "triangles": [
+        500,
+        2000,
+        8000,
+        32000,
+        128000
+      ]
+    }
+  ]
+}

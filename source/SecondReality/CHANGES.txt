@@ -1,0 +1,10 @@
+﻿Demo Benchmark native worker changes relative to SecondRealityPlusPlus 5827f3e:
+- main.cpp replaces the standalone entry point and vsync wait, adds part notifications.
+- BenchHost.h/cpp provide the Windows shared-memory transport and fixed 70Hz wait.
+- The worker has no graphics window. All GPU rendering is owned by Demo Benchmark.
+- Graphics/Graphics.cpp is retained for upstream reference and excluded from build.
+- Parts/ENDSCRL/ENDSCRL_MAIN.cpp signals completion at the first '%' wrap marker.
+- Music/music.cpp checks playback initialization and fixes the sync table bound.
+- Music/audioPlayer.cpp supports silent PCM diagnostics without mutating session gain;
+  normal playback recovers a zero gain on this app's audio session.
+- Original embedded data, effect rasterizers, palette and tracker timing are retained.

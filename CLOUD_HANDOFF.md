@@ -2,7 +2,26 @@
 
 Updated: 2026-11-04 (Asia/Tokyo).
 
-## Latest Android update: 0.1.2
+## Latest Android update: 0.1.3
+
+A user reported Median/Vulkan/highest results of 32.0 FPS on arrows Alpha and
+840.7 FPS on Galaxy Z Flip 7. The attached Galaxy JSON records Xclipse 950,
+106683 measured frames, a 129.892558-second playback and profile v1/app 0.1.1,
+while the user says both installed apps were 0.1.2. The shared history may be
+older; do not treat the version of the current comparison as established.
+No Exynos-specific cause or frame-count duplication has been confirmed.
+
+Vulkan render-pass attachment LOAD operations now include destination read
+access in their external dependency. Result JSON adds measured wall seconds,
+submitted/completed frames and GPU-completed frame workload totals/averages.
+The benchmark profile is `android-offscreen-v3` and versionCode is 4. This is
+a synchronization fix and diagnostic build, not a verified Exynos FPS fix.
+No arbitrary FPS ceiling or vendor-specific score correction was added.
+Physical device comparison is still needed; preserve the same signing key.
+Signed ARM64 APK SHA-256:
+`c642eb1b771beea74f0d4d219171f4dc00d104b8f6388e27e50065f21cf69b34`.
+
+## Previous Android update: 0.1.2
 
 The presentation surface now uses the selected quality resolution and is
 aspect-fitted to the screen. Rotating changes the displayed view size without
@@ -52,7 +71,7 @@ The initial transfer branch was `codex/android-cloud-handoff-20261104`; its
 Android work has now been integrated into `main` without rewriting history.
 Original Windows base: `ae45983e185b9356fd17e123c32637f693fbcaee`.
 Use separate GitHub Releases for Windows ZIPs and Android APKs. The Android
-preview uses tag `android-v0.1.2`; the existing Windows release is `v1.1.0`.
+preview uses tag `android-v0.1.3`; the existing Windows release is `v1.1.0`.
 
 ## User preferences and decisions
 

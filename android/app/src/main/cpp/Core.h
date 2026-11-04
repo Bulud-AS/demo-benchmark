@@ -30,7 +30,7 @@ struct Params {
 static_assert(sizeof(Params)==160);
 struct Quality {int id,width,height,samples;};
 Quality quality(int demo,int id);
-struct FrameTag {double time=0;bool measured=false;};
+struct FrameTag {double time=0;bool measured=false;int draws=0,triangles=0;};
 struct Backend {
     int width,height,samples;std::string vendor,renderer,version;bool hardware=true;
     int presentationWidth=0,presentationHeight=0,presentationResizes=0;

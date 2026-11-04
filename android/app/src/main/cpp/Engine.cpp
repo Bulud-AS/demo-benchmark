@@ -31,8 +31,8 @@ Json run(Session* session,JNIEnv* env,AAssetManager* manager,jobject surface,con
     try{
         window=std::make_unique<NativeWindow>(env,surface);setShaderAssets(manager);vulkanAssets=manager;
         gpu=api?createVulkan(window->value,preset.width,preset.height,preset.samples,measuring):createGles(window->value,preset.width,preset.height,preset.samples,measuring);
-        result["renderer"]=gpu->renderer;result["driver"]=gpu->version;result["vendor"]=gpu->vendor;result["hardware"]=gpu->hardware;session->publish(result);
-        Performance performance(measuring);result["performanceStart"]=performance.data();
+        result["requestedSamples"]=preset.samples;result["samples"]=gpu->samples;result["msaaFallback"]=preset.samples!=gpu->samples;preset.samples=gpu->samples;result["renderer"]=gpu->renderer;result["driver"]=gpu->version;result["vendor"]=gpu->vendor;result["hardware"]=gpu->hardware;session->publish(result);
+        Performance performance(measuring&&gpu->hardware);result["performanceStart"]=performance.data();
         SceneRenderer renderer(manager,*gpu,preset,demo!=0);result["loadedTriangles"]=renderer.loadedTriangles;
         auto consume=[&](bool wait){for(auto& tag:gpu->retire(wait)){total++;if(tag.measured){measured++;measuredDraws+=tag.draws;measuredTriangles+=tag.triangles;cpuTotalMs+=tag.cpuMs;waitTotalMs+=tag.waitMs;submitTotalMs+=tag.submitMs;
             auto& bin=bins[(int)tag.time];bin.frames++;bin.draws+=tag.draws;bin.triangles+=tag.triangles;bin.cpuMs+=tag.cpuMs;bin.waitMs+=tag.waitMs;bin.submitMs+=tag.submitMs;if(tag.gpuMs>=0){gpuTimed++;gpuTotalMs+=tag.gpuMs;bin.gpuTimed++;bin.gpuMs+=tag.gpuMs;}}}};

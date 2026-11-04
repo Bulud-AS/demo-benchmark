@@ -10,6 +10,9 @@ hardware utilization after reporting arrows Alpha 21.5 FPS versus Galaxy Z Flip
 confirmed application bottlenecks, implementation and remaining device checks.
 
 VersionName is 0.1.3-beta, versionCode 5, benchmark profile android-offscreen-v4.
+Medium-quality startup is also fixed for unsupported 2x MSAA: both backends
+query color/depth format sample counts and fall back to a supported count no
+higher than requested. JSON records requested/actual counts and fallback.
 The new release tag is android-v0.1.3-beta; retain the existing Alpha APK/tag.
 Beta uses subpass MSAA resolve, precise barriers, fewer pass restarts, CLEAR
 load ops, nonblocking present modes when supported during measurement, Vulkan
@@ -19,7 +22,7 @@ Readbacks happen before the audio clock/measurement starts. System power and
 thermal limits remain active. No physical Exynos fix or 100% hardware utilization
 has been established. CPU topology metadata is runtime-reported, not guessed.
 Signed ARM64 Beta SHA-256:
-`e6261ae3bcc8641070b13384d7343f20b58a21e6f59f460a4217d20fcbd2ef4a`.
+`8f7509d4d60528fe70dd77fa9553dac02b33b04e90774e762c37b3e2c2916bf4`.
 
 ## Previous Android update: 0.1.3 Alpha
 

@@ -29,6 +29,7 @@ struct Params {
     std::array<float,4> color{1,1,1,1},rect{1,1,0,0},crop{0,0,1,0},settings{1,0,0,0},view{},texSize{1,1,1,1};
 };
 static_assert(sizeof(Params)==160);
+inline int supportedSamples(int requested,uint32_t supported){for(int n:{8,4,2,1})if(n<=requested&&(supported&(uint32_t)n))return n;throw std::runtime_error("対応するMSAA形式がありません");}
 struct Quality {int id,width,height,samples;};
 Quality quality(int demo,int id);
 struct FrameTag {double time=0;bool measured=false;int draws=0,triangles=0;double cpuMs=0,waitMs=0,gpuMs=-1,submitMs=0;};

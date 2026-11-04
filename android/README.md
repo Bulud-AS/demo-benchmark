@@ -15,7 +15,7 @@ A lightweight demo benchmark for Android 10+ devices with a 64-bit ARM processor
 
 Android measures GPU-completed offscreen frames independently of the screen refresh rate. Compare results using the same demo, rendering backend, quality and app version. Android and Windows scores are not directly comparable.
 
-Version 0.1.3 Beta uses profile `android-offscreen-v4`: fixed resolution in either orientation, subpass MSAA resolve, fewer render-pass restarts and precise synchronization. Earlier profiles are not directly comparable. Shared JSON includes GPU timestamps where supported, CPU/wait times, per-second frame/workload counts, CPU topology/ADPF status and six image probes collected before measurement. See the [device analysis](docs/device-performance.md).
+Version 0.1.3 Beta uses profile `android-offscreen-v4`: fixed resolution in either orientation, subpass MSAA resolve, fewer render-pass restarts and precise synchronization. Unsupported MSAA counts fall back to a supported count at or below the request; shared results record the actual count. Compare identical actual MSAA counts. Earlier profiles are not directly comparable. Shared JSON includes GPU timestamps where supported, CPU/wait times, per-second frame/workload counts, CPU topology/ADPF status and six image probes collected before measurement. See the [device analysis](docs/device-performance.md).
 
 $$\text{Score} = \text{round}\left(\frac{\text{Average Rendering FPS}}{60} \times 1000\right)$$
 

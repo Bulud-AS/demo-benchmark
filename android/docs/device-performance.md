@@ -9,7 +9,7 @@ Investigated on 2026-11-04. The reported Median/Vulkan/highest results are 21.5 
 | arrows Alpha | FCNT specifies Dimensity 8350 Extreme. The base 8350 specification lists four Cortex-A715 and four Cortex-A510 cores, with a maximum CPU clock of 3.35 GHz. | The base 8350 specification lists Mali-G615 MC6. Confirm the phone's actual GPU/driver with its result JSON. |
 | Galaxy Z Flip 7 | The supplied Galaxy result identifies s5e9955 and Samsung Xclipse 950. Samsung describes Exynos 2500 as ten cores in a 1+7+2 arrangement: one Cortex-X925, seven Cortex-A725 and two Cortex-A520. | Samsung describes Xclipse 950 as a customized GPU based on AMD RDNA 3. |
 
-Sources: [FCNT arrows Alpha](https://www.fcnt.com/product/arrows/m08-rm/), [MediaTek 8350 specifications](https://www.mediatek.com/products/smartphones/mediatek-dimensity-8350), [Samsung Exynos 2500](https://semiconductor.samsung.com/processor/mobile-processor/exynos-2500/).
+Sources: [Samsung phone/SoC identification](https://www.samsungsvc.co.kr/solution/4033898), [FCNT arrows Alpha](https://www.fcnt.com/product/arrows/m08-rm/), [MediaTek 8350 specifications](https://www.mediatek.com/products/smartphones/mediatek-dimensity-8350), [Samsung Exynos 2500](https://semiconductor.samsung.com/processor/mobile-processor/exynos-2500/).
 
 CPU core count, Mali shader-core count and AMD compute-unit count are different quantities. They cannot be divided to predict this benchmark's FPS. A ten-core CPU does not imply that a graphics command-recording thread should occupy ten cores. GPU execution, memory traffic, command preparation and presentation can each limit throughput. Public product specifications do not establish actual sustained GPU frequency, utilization, driver correctness or the expected FPS ratio of these two phones.
 
@@ -28,13 +28,17 @@ The following were confirmed by source inspection, independently of the reported
 
 These are application bottlenecks or diagnostic limitations. They are not evidence of a defect in Exynos silicon. The approximately 44-fold difference remains unconfirmed until fresh comparable device logs and image probes are available.
 
+## Medium-quality startup failure
+
+Medium requests 2x MSAA. Vulkan framebuffer/format support can include 1x and 4x without 2x; GLES support also depends on the color and depth formats. The old startup check rejected unsupported 2x outright. Beta queries both attachment formats, intersects supported sample counts and selects the greatest supported count no higher than the request. Thus medium can use 1x when 2x is unavailable while retaining its medium model detail and resolution. The result records requestedSamples, actual samples, the supported mask and msaaFallback. Compare identical actual counts. This fixes the confirmed unsupported-MSAA startup path; a different failure still requires the device errorDetail. [Vulkan image-format capabilities](https://docs.vulkan.org/spec/latest/chapters/capabilities.html).
+
 ## Beta implementation
 
 The Vulkan backend now resolves MSAA in the subpass, combines consecutive work on the same target, uses CLEAR when starting a pass with a full clear, and expresses transitions with the relevant pipeline stages/access masks. MSAA color and depth contents are still stored where a later pass must preserve them; blindly discarding them or enabling lazy allocation would corrupt this compositor's interrupted passes.
 
 Measurement prefers MAILBOX, then IMMEDIATE presentation when supported; FIFO remains the compatibility fallback. Playback keeps FIFO. The measured rendering loop remains uncapped, with three frames in flight and a 30 Hz preview. Audio continues to control animation time. No vendor-specific score multiplier, FPS clamp or artificial busy-work was added.
 
-On supported Android versions, the render thread creates an ADPF performance-hint session with a 1 ms CPU-side work target and reports real work duration. This target is a scheduler hint, not a sleep or FPS cap. Older/unsupported systems continue without the session. Android chooses the CPU placement; no affinity to a numbered big/little core is forced. Android documents hints as requests that help the system allocate CPU resources, rather than a guarantee of maximum clock. [Performance Hint API](https://source.android.com/docs/core/perf/performance-hint-api).
+On supported Android versions during hardware-GPU measurement, the render thread creates an ADPF performance-hint session with a 1 ms CPU-side work target and reports real work duration. This target is a scheduler hint, not a sleep or FPS cap. Older/unsupported systems continue without the session. Android chooses the CPU placement; no affinity to a numbered big/little core is forced. Android documents hints as requests that help the system allocate CPU resources, rather than a guarantee of maximum clock. [Performance Hint API](https://source.android.com/docs/core/perf/performance-hint-api).
 
 The result records allowed CPU IDs and readable maximum-frequency/capacity metadata. Missing sysfs data remains missing. ADPF active/report counts mean the API accepted requests, not that maximum clocks were independently measured. Thermal and power policies remain in force. Median remains a graphics workload; it does not test peak NPU, ray-tracing, CPU-all-core or storage performance.
 

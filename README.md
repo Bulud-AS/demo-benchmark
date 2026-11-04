@@ -4,6 +4,8 @@ A Windows x64 benchmark tool designed for low-spec PCs. Supports OpenGL 3.3, nat
 
 [Download v1.1.0 for Windows x64](https://github.com/Bulud-AS/demo-benchmark/releases/tag/v1.1.0). Extract the complete ZIP and run `Demo Benchmark.exe`.
 
+An Android 10+ / ARM64 prototype with Material 3 Expressive, OpenGL ES and Vulkan is available in [android/](android/README.md).
+
 For older GPUs, try Direct3D 9 / 9Ex (Shader Model 3.0) or native Direct3D 11 (Feature Level 10_0 or later). Direct3D 12 requires Windows 10 or later and a compatible driver. Benchmark display FPS is uncapped; unsupported backends or precision settings are skipped in "All" mode. This is a Windows x64 application; adding legacy GPU backends does not add Windows XP or 32-bit support.
 
 ## Demo Overview

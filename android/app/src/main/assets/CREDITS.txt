@@ -1,0 +1,33 @@
+Demo Benchmark for Android — MIT (application code).
+
+Median — Ümlaüt Design / Gargaj, 2016.
+Original models, animation, cameras, images and music belong to their authors.
+https://gargaj.umlaut.hu/prods/median/
+https://www.pouet.net/prod.php?which=67384
+The soundtrack is decoded from the user's supplied recording.
+Original engine binaries and PluginAssimp are not included or loaded.
+The original assets are retained for the user's local use; the application's
+MIT license does not grant rights to redistribute those assets.
+
+Second Reality — Future Crew, 1993, Unlicense / public domain.
+https://github.com/mtuomi/SecondReality
+Revision: 071a82eddb7a7390dbaa491a8a473e0e923a55c2
+Second Reality++ port — XorJS / JSR Productions, Unlicense.
+https://github.com/XorJS/SecondRealityPlusPlus
+Revision: 5827f3e085d75bcc70710068b8b6cc1201dccd60
+Based on Gargaj / Conspiracy's Win32 port.
+Original authors: Sami "PSI" Tammilehto, Mika "Trug" Tuomi,
+Arto "Wildfire" Vuori, Skaven, Purple Motion and Future Crew.
+Scream Tracker replayer: st3play v1.01 by Olav "8bitbubsy" Sorensen,
+using Future Crew's original playback code.
+The original effect rasterizers and tracker replayer run as software;
+OpenGL ES / Vulkan handle presentation and optional Catmull-Rom scaling.
+
+Android UI: Kotlin, Jetpack Compose, Material 3 Expressive and AndroidX
+by JetBrains, Google and Android Open Source Project contributors,
+Apache License 2.0.
+Oboe 1.9.3 — Google / Android Open Source Project, Apache License 2.0.
+nlohmann JSON 3.12.0 — Niels Lohmann and contributors, MIT.
+stb_image — Sean Barrett and contributors, MIT / public domain.
+LLVM libc++ / libc++abi — LLVM contributors, Apache 2.0 with LLVM exceptions.
+Full license texts and source notices are bundled in this application.

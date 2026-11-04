@@ -1,0 +1,2 @@
+-keep class io.github.buludas.demobenchmark.NativeEngine { *; }
+-keepclasseswithmembernames class * { native <methods>; }

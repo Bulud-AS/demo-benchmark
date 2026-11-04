@@ -2,7 +2,11 @@
 
 Updated: 2026-11-04 (Asia/Tokyo).
 
-## Latest Android update: 0.1.3
+## Latest Android update: 0.1.3 Alpha
+
+The Android 0.1.3 release is now labeled Alpha (GitHub pre-release). The user
+wants temporary Alpha releases removed after testing; no deletion is requested
+for this turn. Keep APKs and tags unchanged when editing release labels.
 
 A user reported Median/Vulkan/highest results of 32.0 FPS on arrows Alpha and
 840.7 FPS on Galaxy Z Flip 7. The attached Galaxy JSON records Xclipse 950,

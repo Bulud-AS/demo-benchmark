@@ -2,7 +2,7 @@
 
 A lightweight demo benchmark for Android 10+ devices with a 64-bit ARM processor. Supports OpenGL ES 3.0 and Vulkan 1.1, with a Material 3 Expressive UI. Unsupported rendering backends are unavailable for selection.
 
-[Download v0.1.3 Preview for Android ARM64](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.3/DemoBenchmark-Android-v0.1.3-arm64.apk). Install the signed APK; it includes the required rendering data and audio and can update the previous Android build. For the Windows version, see the [main README](../README.md).
+[Download v0.1.3 Alpha for Android ARM64](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.3/DemoBenchmark-Android-v0.1.3-arm64.apk). Install the signed APK; it includes the required rendering data and audio and can update the previous Android build. For the Windows version, see the [main README](../README.md).
 
 ## Demo Overview
 

@@ -34,4 +34,4 @@ Use the same signing key for app updates. Keep the key and password outside Git.
 
 ## Verification Status
 
-This is a preview build. Short emulator runs covered installation, both rendering backends, orientation changes, stopping and result display. Physical ARM64 devices, audible audio output, full playback of both demos and official hardware performance scores remain unverified.
+This is an alpha build. Short emulator runs covered installation, both rendering backends, orientation changes, stopping and result display. Physical ARM64 devices, audible audio output, full playback of both demos and official hardware performance scores remain unverified.

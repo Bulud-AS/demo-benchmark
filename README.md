@@ -1,12 +1,18 @@
 # Demo Benchmark
 
-A Windows x64 benchmark tool designed for low-spec PCs. Supports OpenGL 3.3, native Direct3D 9 / 9Ex / 11 / 12, and Direct3D 11 / Vulkan via ANGLE.
+A lightweight demo benchmark for Windows PCs and Android devices.
 
-[Download v1.1.0 for Windows x64](https://github.com/Bulud-AS/demo-benchmark/releases/tag/v1.1.0). Extract the complete ZIP and run `Demo Benchmark.exe`.
+## Downloads
 
-An Android 10+ / ARM64 prototype with Material 3 Expressive, OpenGL ES and Vulkan is available in [android/](android/README.md).
+| Platform | Version | Download |
+| --- | --- | --- |
+| Windows x64 | v1.1.0 | [ZIP with EXE and required files](https://github.com/Bulud-AS/demo-benchmark/releases/download/v1.1.0/DemoBenchmark-v1.1.0-Windows-x64.zip) |
+| Android 10+ / ARM64 | v0.1.1 Preview | [Signed APK](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.1/DemoBenchmark-Android-v0.1.1-arm64.apk) |
 
-For older GPUs, try Direct3D 9 / 9Ex (Shader Model 3.0) or native Direct3D 11 (Feature Level 10_0 or later). Direct3D 12 requires Windows 10 or later and a compatible driver. Benchmark display FPS is uncapped; unsupported backends or precision settings are skipped in "All" mode. This is a Windows x64 application; adding legacy GPU backends does not add Windows XP or 32-bit support.
+Windows: extract the complete ZIP and run `Demo Benchmark.exe`, keeping `assets/` and `runtime/` beside it. Android: install the APK; it can update the previous Android build. The APK includes its rendering data and audio. The two platforms have separate version numbers.
+
+- **Windows rendering**: OpenGL 3.3, native Direct3D 9 / 9Ex / 11 / 12, and Direct3D 11 / Vulkan via ANGLE. For older GPUs, try Direct3D 9 / 9Ex or native Direct3D 11. Direct3D 12 needs Windows 10+ and a compatible GPU. Windows XP and 32-bit Windows are not supported.
+- **Android rendering**: OpenGL ES 3.0 / Vulkan 1.1, with a Material 3 Expressive UI. This is a prototype; see [Android details](android/README.md).
 
 ## Demo Overview
 - **Median**: For comparing real-time 3D rendering performance (approx. 130 seconds). Please compare results using identical precision, rendering backend, and screen resolution settings.
@@ -15,6 +21,8 @@ For older GPUs, try Direct3D 9 / 9Ex (Shader Model 3.0) or native Direct3D 11 (F
 *Note: Because Second Reality may redisplay identical original frames, its rating serves as a reference for display processing only. Do not directly compare scores between the two demos.*
 
 ## Score & Rating Guidelines
+
+Compare results within the same platform, demo, rendering backend, quality and version. Windows uses display FPS; Android uses GPU-completed offscreen frames. Windows and Android scores are not directly comparable.
 
 $$\text{Score} = \text{round}\left(\frac{\text{Average Display FPS}}{60} \times 1000\right)$$
 
@@ -29,13 +37,17 @@ Official scores and ratings are recorded only when a run completes under valid c
 | Below 15 | Below 250 | Unplayable |
 
 - Ratings are determined using the unrounded average FPS.
-- Even if the average FPS is high, you may experience stuttering if the 1% Low FPS is low.
+- On Windows, even if the average FPS is high, you may experience stuttering if the 1% Low FPS is low.
 - Scores and ratings are guidelines specific to the selected demo and settings.
 - Ratings for Second Reality are prefixed with `Display: ` (e.g., `表示：` in the Japanese UI).
 
 For build instructions and how to run the application, please refer to [BUILD.md](BUILD.md).
 
+Sources: Windows code and runtime files are in `source/` and `runtime/`; Android code and build files are in [`android/`](android/README.md). Shared Median data is in `assets/`, and shared notices are in `notices/`. Download binaries from Releases.
+
 ## Credits & Licenses
 - **Median**: Ümlaüt Design / Gargaj and original authors (2016)
 - **Second Reality**: Future Crew (1993) / Windows port: XorJS / Conspiracy / Music playback: 8bitbubsy
 - **Rendering Translation & Loader**: ANGLE Project / Vulkan Loader: Khronos Group and others
+
+Application code: [MIT](LICENSE.txt). Original demo assets and music have separate terms. See [Windows/shared credits](CREDITS.txt) and [Android credits](android/CREDITS.txt).

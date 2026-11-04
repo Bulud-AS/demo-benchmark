@@ -30,10 +30,12 @@ Japanese and wait for the user's next development instruction. The Android
 prototype has already been delivered; no new feature or rewrite is requested.
 
 Repository: https://github.com/Bulud-AS/demo-benchmark
-Handoff branch: `codex/android-cloud-handoff-20261104`.
-Windows base: `ae45983e185b9356fd17e123c32637f693fbcaee` on `main`.
-The Android work and this handoff are on the handoff branch. Check out that
-branch if the saved Cloud environment initially selects `main`.
+Current development branch: `main`, which includes both Windows and Android.
+The initial transfer branch was `codex/android-cloud-handoff-20261104`; its
+Android work has now been integrated into `main` without rewriting history.
+Original Windows base: `ae45983e185b9356fd17e123c32637f693fbcaee`.
+Use separate GitHub Releases for Windows ZIPs and Android APKs. The Android
+preview uses tag `android-v0.1.1`; the existing Windows release is `v1.1.0`.
 
 ## User preferences and decisions
 
@@ -138,7 +140,8 @@ Local artifact: `DemoBenchmark-Android-v0.1.0-arm64.apk`, 71,027,229 bytes.
 SHA-256: `17b80a64e66c29d84177ec20715c30e71b9b629607e854a1e39a47a3d87c66b4`.
 Certificate SHA-256:
 `c201e00ae416c094073fd0f3f490c14d3da033813d6ed7c0e2370c561c590934`.
-The signed APK is local-only; it was not uploaded to Git or a new release.
+This 0.1.0 APK was delivered locally. The updated 0.1.1 APK is distributed
+through the separate Android GitHub Release, not committed as a Git blob.
 
 Verified locally:
 
@@ -174,6 +177,7 @@ the repository or this chat, create a replacement release key, or sign updates
 with a different key. `android/sign-apk.ps1` signs and verifies artifacts locally.
 Cloud can build an unsigned APK for local signing with the existing key.
 
-Do not publish a release, alter repository visibility, or merge the transfer
-branch merely because the conversation is being moved. Await the user's next
-instruction after confirming that this context and branch are available.
+The user subsequently authorized adding Android to this repository and left
+the Windows/Android organization to the agent. That is the basis for the main
+integration and separate Android release above. Further releases and visibility
+changes still require user instructions. Await the user's next development task.

@@ -6,3 +6,7 @@ local.properties
 *.jks
 *.keystore
 captures/
+*.apk
+*.aab
+*.apks
+*.idsig

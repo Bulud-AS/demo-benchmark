@@ -2,6 +2,8 @@
 
 Android 10以降・64bit ARM向け。OpenGL ES 3.0、Vulkan 1.1に対応し、非対応方式は選択できません。UIはJetpack Compose / Material 3 Expressiveです。
 
+[署名済みAPK v0.1.1をダウンロード](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.1/DemoBenchmark-Android-v0.1.1-arm64.apk)。既存のAndroid版に上書き更新できます。Windows版は[ルートREADME](../README.md)を参照してください。
+
 - **Median**：3D描画性能の計測。品質は最低・低・中・高・最高の5段階で、モデル分割、解像度、MSAAが変わります。
 - **Second Reality**：表示・音声の動作確認。原画質と高画質補間を選べます。元のソフトウェア描画を使用し、詳細モデルへの作り直しは行いません。
 

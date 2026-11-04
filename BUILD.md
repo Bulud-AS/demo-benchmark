@@ -1,4 +1,6 @@
-# Build & Run Instructions
+# Windows Build & Run Instructions
+
+For the Android APK, use [android/README.md](android/README.md). Windows ZIPs and Android APKs are published as separate GitHub Releases; generated binaries are not committed to Git.
 
 The target platform is Windows x64. A standard build uses the built-in Windows .NET Framework C# compiler.
 

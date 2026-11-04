@@ -141,7 +141,22 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
 @Composable private fun Running(vm:BenchViewModel,state:UiState){
     val live=state.live;val phase=live.optString("phase","preparing")
     Box(Modifier.fillMaxSize().background(Color.Black)){
-        AndroidView(factory={context->SurfaceView(context).apply{val view=this;holder.addCallback(object:SurfaceHolder.Callback{private var started=false;private val start=Runnable{if(holder.surface.isValid){started=true;vm.surfaceReady(holder.surface)}};override fun surfaceCreated(holder:SurfaceHolder){view.postDelayed(start,250)};override fun surfaceChanged(holder:SurfaceHolder,format:Int,width:Int,height:Int){if(!started){view.removeCallbacks(start);view.postDelayed(start,250)}};override fun surfaceDestroyed(holder:SurfaceHolder){view.removeCallbacks(start);if(started)vm.surfaceLost()}})}},modifier=Modifier.fillMaxSize())
+        BoxWithConstraints(Modifier.fillMaxSize()){
+            val renderWidth=state.options.renderWidth;val renderHeight=state.options.renderHeight
+            val aspect=renderWidth.toFloat()/renderHeight
+            val displayWidth=minOf(maxWidth,maxHeight*aspect)
+            AndroidView(factory={context->SurfaceView(context).apply{
+                val view=this
+                holder.setFixedSize(renderWidth,renderHeight)
+                holder.addCallback(object:SurfaceHolder.Callback{
+                    private var started=false
+                    private val start=Runnable{if(holder.surface.isValid){started=true;vm.surfaceReady(holder.surface)}}
+                    override fun surfaceCreated(holder:SurfaceHolder){view.postDelayed(start,250)}
+                    override fun surfaceChanged(holder:SurfaceHolder,format:Int,width:Int,height:Int){if(!started){view.removeCallbacks(start);view.postDelayed(start,250)}}
+                    override fun surfaceDestroyed(holder:SurfaceHolder){view.removeCallbacks(start);if(started)vm.surfaceLost()}
+                })
+            }},modifier=Modifier.align(Alignment.Center).size(displayWidth,displayWidth/aspect))
+        }
         Column(Modifier.align(Alignment.TopStart).windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top+WindowInsetsSides.Horizontal)).padding(16.dp).widthIn(max=320.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){
             Surface(shape=MaterialTheme.shapes.large,color=MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha=.94f)){
                 Column(Modifier.padding(horizontal=16.dp,vertical=12.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
@@ -178,7 +193,7 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
         Button(onClick={vm.configure(row.options.copy(muted=vm.ui.value.options.muted,theme=vm.ui.value.options.theme));vm.navigate(Screen.Home);vm.begin(true)},enabled=!vm.ui.value.busy&&vm.supported(row.api)&&(vm.hardware(row.api)||vm.allowSoftware),modifier=Modifier.fillMaxWidth().heightIn(min=56.dp)){Text("もう一度計測")}
         OutlinedButton(onClick={val dir=File(context.cacheDir,"shared").apply{mkdirs()};val file=File(dir,"${row.id}.json").apply{writeText(row.json)};val uri=FileProvider.getUriForFile(context,BuildConfig.APPLICATION_ID+".files",file);context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("application/json").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),"結果を共有"))},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp)){Text("共有")}
         TextButton(onClick={details=!details}){Text(if(details)"詳細を閉じる" else "詳細")}
-        if(details){Text("Android描画性能計測 · android-offscreen-v1",style=MaterialTheme.typography.bodyMedium);Text(data.optString("model")+"\n"+data.optString("renderer")+"\n"+data.optString("driver"),style=MaterialTheme.typography.bodyMedium);Text("計測フレーム "+integer(data.optLong("frames")),style=MaterialTheme.typography.bodyMedium);if(data.has("audioUnderruns"))Text("音声アンダーラン "+data.optInt("audioUnderruns"));val conditions=data.optJSONObject("conditionEnd");if(conditions!=null&&!conditions.isNull("batteryTemperature"))Text("バッテリー温度 "+decimal(conditions.optDouble("batteryTemperature"))+" ℃");val error=data.optString("errorDetail");if(error.isNotBlank())Text(error.take(1200),style=MaterialTheme.typography.bodySmall)}
+        if(details){Text("Android描画性能計測 · "+data.optString("profile","android-offscreen-v1"),style=MaterialTheme.typography.bodyMedium);Text(data.optString("model")+"\n"+data.optString("renderer")+"\n"+data.optString("driver"),style=MaterialTheme.typography.bodyMedium);Text("計測フレーム "+integer(data.optLong("frames")),style=MaterialTheme.typography.bodyMedium);if(data.has("audioUnderruns"))Text("音声アンダーラン "+data.optInt("audioUnderruns"));val conditions=data.optJSONObject("conditionEnd");if(conditions!=null&&!conditions.isNull("batteryTemperature"))Text("バッテリー温度 "+decimal(conditions.optDouble("batteryTemperature"))+" ℃");val error=data.optString("errorDetail");if(error.isNotBlank())Text(error.take(1200),style=MaterialTheme.typography.bodySmall)}
     }}
 }
 @Composable private fun Metric(label:String,value:String){ListItem(headlineContent={Text(label)},supportingContent={Text(value,style=MaterialTheme.typography.titleLarge)},colors=ListItemDefaults.colors(containerColor=Color.Transparent))}

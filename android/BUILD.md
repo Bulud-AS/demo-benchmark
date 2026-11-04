@@ -2,7 +2,7 @@
 
 ## Install & Run
 
-Install the signed APK from the [Android release](https://github.com/Bulud-AS/demo-benchmark/releases/tag/android-v0.1.1). It supports Android 10+ on ARM64 devices and includes its rendering data and audio.
+Install the signed APK from the [Android release](https://github.com/Bulud-AS/demo-benchmark/releases/tag/android-v0.1.2). It supports Android 10+ on ARM64 devices and includes its rendering data and audio.
 
 The app starts in standby mode. Select the demo, rendering backend and quality, then choose Benchmark or Play. Benchmark saves results and ratings locally and supports sharing them as JSON. Play does not save a benchmark score.
 

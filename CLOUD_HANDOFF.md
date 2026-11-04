@@ -2,7 +2,24 @@
 
 Updated: 2026-11-04 (Asia/Tokyo).
 
-## Latest Android update: 0.1.1
+## Latest Android update: 0.1.2
+
+The presentation surface now uses the selected quality resolution and is
+aspect-fitted to the screen. Rotating changes the displayed view size without
+changing the native presentation buffer. This removes the app's orientation-
+dependent presentation resolution from the measured workload. Exact FPS can
+still vary with animation content and device conditions.
+
+The benchmark profile is now `android-offscreen-v2`; earlier v1 scores are not
+directly comparable. Existing result details retain their recorded profile.
+VersionCode is 3. The signed ARM64 APK uses the existing update certificate.
+SHA-256:
+`f0dc584a047fe4c7b7514a85a40c1567c9cb707e852586b29eb825d29a4d6199`.
+Targeted emulator checks verified unchanged native buffer dimensions through
+both rotations in GLES and Vulkan. Physical-device FPS equivalence remains
+unverified. Builds and signing continue on the original local PC.
+
+## Previous Android update: 0.1.1
 
 The user requested landscape on entry to playback/measurement, the status HUD
 at top left, Stop at bottom right, and a bottom-left portrait/landscape toggle.
@@ -35,7 +52,7 @@ The initial transfer branch was `codex/android-cloud-handoff-20261104`; its
 Android work has now been integrated into `main` without rewriting history.
 Original Windows base: `ae45983e185b9356fd17e123c32637f693fbcaee`.
 Use separate GitHub Releases for Windows ZIPs and Android APKs. The Android
-preview uses tag `android-v0.1.1`; the existing Windows release is `v1.1.0`.
+preview uses tag `android-v0.1.2`; the existing Windows release is `v1.1.0`.
 
 ## User preferences and decisions
 

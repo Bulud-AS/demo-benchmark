@@ -13,7 +13,9 @@ data class Options(val demo:Int=0,val api:Int=0,val medianQuality:Int=1,val srQu
     val demoName:String get()=if(demo==0)"Median" else "Second Reality"
     val apiName:String get()=if(api==0)"OpenGL ES 3.0" else "Vulkan"
     val qualityName:String get()=if(demo==0)listOf("最低","低","中","高","最高")[quality.coerceIn(0,4)] else if(quality==0)"原画質" else "高画質（補間）"
-    val resolution:String get()=if(demo==1){if(quality==0)"640 × 480" else "1440 × 1080"} else listOf("640 × 360","960 × 540","1280 × 720","1600 × 900","1920 × 1080")[quality.coerceIn(0,4)]
+    val renderWidth:Int get()=if(demo==1){if(quality==0)640 else 1440}else listOf(640,960,1280,1600,1920)[quality.coerceIn(0,4)]
+    val renderHeight:Int get()=if(demo==1){if(quality==0)480 else 1080}else listOf(360,540,720,900,1080)[quality.coerceIn(0,4)]
+    val resolution:String get()="$renderWidth × $renderHeight"
     fun withQuality(value:Int)=if(demo==0)copy(medianQuality=value)else copy(srQuality=value)
 }
 private val Context.preferences by preferencesDataStore("settings")

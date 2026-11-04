@@ -33,7 +33,9 @@ Quality quality(int demo,int id);
 struct FrameTag {double time=0;bool measured=false;};
 struct Backend {
     int width,height,samples;std::string vendor,renderer,version;bool hardware=true;
+    int presentationWidth=0,presentationHeight=0,presentationResizes=0;
     Backend(int w,int h,int aa):width(w),height(h),samples(aa){}
+    void presentationSize(int w,int h){if(presentationWidth&&(presentationWidth!=w||presentationHeight!=h))presentationResizes++;presentationWidth=w;presentationHeight=h;}
     virtual ~Backend()=default;
     virtual int texture(int,int,const uint8_t*,bool)=0;
     virtual int mesh(const void*,int,const void*,int)=0;

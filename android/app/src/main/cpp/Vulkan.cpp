@@ -89,6 +89,7 @@ public:
         start();endPass();resolve(root);uint32_t index=0;
         if(preview){
             if(!prepareSwapchain()){submit(tag,false,0);return;}
+            presentationSize(swapSize.width,swapSize.height);
             VkResult acquired=vkAcquireNextImageKHR(device,swap,15000000000ull,frames[slot].acquired,VK_NULL_HANDLE,&index);
             if(acquired==VK_ERROR_OUT_OF_DATE_KHR){resizePending=true;submit(tag,false,0);return;}
             need(acquired==VK_SUCCESS||acquired==VK_SUBOPTIMAL_KHR,"画面を更新できません");

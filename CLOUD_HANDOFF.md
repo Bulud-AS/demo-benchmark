@@ -2,6 +2,25 @@
 
 Updated: 2026-11-04 (Asia/Tokyo).
 
+## Latest Android update: 0.1.1
+
+The user requested landscape on entry to playback/measurement, the status HUD
+at top left, Stop at bottom right, and a bottom-left portrait/landscape toggle.
+These changes are implemented. Orientation changes preserve the running
+session, audio clock and measurements. Vulkan rebuilds presentation resources
+after a window resize while retaining the scene and offscreen targets.
+
+The APK versionCode is 2. A signed ARM64 APK was delivered locally using the
+same certificate as 0.1.0. SHA-256:
+`cd8fbfd960fe0ce176cbc7a3a44f72bdde418790c10b99504a29524ca0692742`.
+Debug GLES and Vulkan measurements and signed ARM64 release playback were
+checked in an Android 15 emulator, including both rotations and stopping.
+Physical-device validation remains outstanding.
+
+The Cloud chat is currently for source editing only: the user explicitly asked
+not to build there. This APK was built and signed on the original local PC.
+The 0.1.0 details below are retained as the initial delivery record.
+
 ## Current request
 
 The user wants to continue this project's desktop conversation in Codex Cloud.

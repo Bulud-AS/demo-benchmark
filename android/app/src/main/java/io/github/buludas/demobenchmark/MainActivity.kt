@@ -2,7 +2,7 @@
 package io.github.buludas.demobenchmark
 
 import android.content.Intent
-import android.content.res.Configuration
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -64,7 +64,6 @@ class MainActivity:ComponentActivity() {
     }
     private fun lifecycleScopeLaunch(block:suspend ()->Unit){lifecycleScope.launch{block()}}
     override fun onStop(){model.background();super.onStop()}
-    override fun onConfigurationChanged(newConfig:Configuration){super.onConfigurationChanged(newConfig);if(model.ui.value.busy)model.stop("画面が変更されました")}
 }
 
 @Composable private fun App(vm:BenchViewModel,activity:ComponentActivity){
@@ -73,6 +72,13 @@ class MainActivity:ComponentActivity() {
     val colors=if(android.os.Build.VERSION.SDK_INT>=31){if(dark)dynamicDarkColorScheme(activity)else dynamicLightColorScheme(activity)}else if(dark)darkColorScheme(primary=Color(0xFFA9D0AE),onPrimary=Color(0xFF14381E),primaryContainer=Color(0xFF2D4F34),onPrimaryContainer=Color(0xFFC4ECCC))else lightColorScheme(primary=Color(0xFF47664E),onPrimary=Color.White,primaryContainer=Color(0xFFC8ECCE),onPrimaryContainer=Color(0xFF10351D))
     MaterialExpressiveTheme(colorScheme=colors){
         val inRun=state.screen==Screen.Running
+        DisposableEffect(inRun){
+            val previous=activity.requestedOrientation
+            onDispose{if(inRun)activity.requestedOrientation=previous}
+        }
+        LaunchedEffect(inRun,state.runPortrait){
+            if(inRun)activity.requestedOrientation=if(state.runPortrait)ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT else ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        }
         DisposableEffect(inRun,dark){val controller=WindowCompat.getInsetsController(activity.window,activity.window.decorView);controller.isAppearanceLightStatusBars=!inRun&&!dark;controller.isAppearanceLightNavigationBars=!inRun&&!dark;if(inRun){activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);controller.systemBarsBehavior=WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE;controller.hide(WindowInsetsCompat.Type.systemBars())}else{activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);controller.show(WindowInsetsCompat.Type.systemBars())};onDispose{activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);controller.show(WindowInsetsCompat.Type.systemBars())}}
         PredictiveBackHandler(enabled=state.screen!=Screen.Home){events->try{events.collect{};vm.back()}catch(_:CancellationException){}}
         Surface(Modifier.fillMaxSize(),color=MaterialTheme.colorScheme.background){
@@ -135,18 +141,24 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
 @Composable private fun Running(vm:BenchViewModel,state:UiState){
     val live=state.live;val phase=live.optString("phase","preparing")
     Box(Modifier.fillMaxSize().background(Color.Black)){
-        AndroidView(factory={context->SurfaceView(context).apply{val view=this;holder.addCallback(object:SurfaceHolder.Callback{private var w=0;private var h=0;private var started=false;private val start=Runnable{if(holder.surface.isValid){started=true;vm.surfaceReady(holder.surface)}};override fun surfaceCreated(holder:SurfaceHolder){view.postDelayed(start,200)};override fun surfaceChanged(holder:SurfaceHolder,format:Int,width:Int,height:Int){if(started&&w>0&&h>0&&(w!=width||h!=height))vm.surfaceLost();if(!started){view.removeCallbacks(start);view.postDelayed(start,200)};w=width;h=height};override fun surfaceDestroyed(holder:SurfaceHolder){view.removeCallbacks(start);if(started)vm.surfaceLost()}})}},modifier=Modifier.fillMaxSize())
-        if(phase=="preparing")Surface(Modifier.align(Alignment.Center),shape=MaterialTheme.shapes.extraLarge,color=MaterialTheme.colorScheme.surfaceContainerHigh){Column(Modifier.padding(28.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(12.dp)){LoadingIndicator();Text("準備中",style=MaterialTheme.typography.titleMedium)}}
-        Column(Modifier.align(Alignment.TopCenter).fillMaxWidth().displayCutoutPadding().statusBarsPadding().padding(16.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){
-            if(phase!="preparing")Surface(shape=MaterialTheme.shapes.large,color=MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha=.94f)){
+        AndroidView(factory={context->SurfaceView(context).apply{val view=this;holder.addCallback(object:SurfaceHolder.Callback{private var started=false;private val start=Runnable{if(holder.surface.isValid){started=true;vm.surfaceReady(holder.surface)}};override fun surfaceCreated(holder:SurfaceHolder){view.postDelayed(start,250)};override fun surfaceChanged(holder:SurfaceHolder,format:Int,width:Int,height:Int){if(!started){view.removeCallbacks(start);view.postDelayed(start,250)}};override fun surfaceDestroyed(holder:SurfaceHolder){view.removeCallbacks(start);if(started)vm.surfaceLost()}})}},modifier=Modifier.fillMaxSize())
+        Column(Modifier.align(Alignment.TopStart).windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top+WindowInsetsSides.Horizontal)).padding(16.dp).widthIn(max=320.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){
+            Surface(shape=MaterialTheme.shapes.large,color=MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha=.94f)){
                 Column(Modifier.padding(horizontal=16.dp,vertical=12.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
-                    FlowRow(horizontalArrangement=Arrangement.spacedBy(16.dp)){Text(decimal(live.optDouble("fps",0.0))+" FPS",style=MaterialTheme.typography.titleMedium);if(live.optBoolean("measuring",true))Text((if(live.isNull("score"))"—" else integer(live.optLong("score")))+" pts",style=MaterialTheme.typography.titleMedium)}
-                    val elapsed=live.optDouble("elapsed",0.0);val duration=live.optDouble("duration",0.0)
-                    Text(if(phase=="warmup")"ウォームアップ" else if(duration>0)"残り "+clock(duration-elapsed)else "経過 "+clock(elapsed),style=MaterialTheme.typography.bodyMedium)
+                    if(phase=="preparing"){
+                        Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){LoadingIndicator(Modifier.size(32.dp));Text("準備中",style=MaterialTheme.typography.titleMedium)}
+                    }else{
+                        FlowRow(horizontalArrangement=Arrangement.spacedBy(16.dp)){Text(decimal(live.optDouble("fps",0.0))+" FPS",style=MaterialTheme.typography.titleMedium);if(live.optBoolean("measuring",true))Text((if(live.isNull("score"))"—" else integer(live.optLong("score")))+" pts",style=MaterialTheme.typography.titleMedium)}
+                        val elapsed=live.optDouble("elapsed",0.0);val duration=live.optDouble("duration",0.0)
+                        Text(if(phase=="warmup")"ウォームアップ" else if(duration>0)"残り "+clock(duration-elapsed)else "経過 "+clock(elapsed),style=MaterialTheme.typography.bodyMedium)
+                    }
                 }
             }
         }
-        FilledTonalButton(onClick={vm.stop()},modifier=Modifier.align(Alignment.BottomCenter).navigationBarsPadding().displayCutoutPadding().padding(24.dp).heightIn(min=56.dp)){Icon(Icons.Filled.Stop,null);Spacer(Modifier.width(8.dp));Text("停止")}
+        Row(Modifier.align(Alignment.BottomCenter).fillMaxWidth().windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom+WindowInsetsSides.Horizontal)).padding(16.dp),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically){
+            FilledTonalButton(onClick={vm.toggleRunOrientation()},modifier=Modifier.heightIn(min=56.dp)){Icon(Icons.Filled.ScreenRotation,null);Spacer(Modifier.width(8.dp));Text(if(state.runPortrait)"横向き" else "縦向き")}
+            FilledTonalButton(onClick={vm.stop()},modifier=Modifier.heightIn(min=56.dp)){Icon(Icons.Filled.Stop,null);Spacer(Modifier.width(8.dp));Text("停止")}
+        }
     }
 }
 @Composable private fun ResultPage(vm:BenchViewModel,row:RunResult){

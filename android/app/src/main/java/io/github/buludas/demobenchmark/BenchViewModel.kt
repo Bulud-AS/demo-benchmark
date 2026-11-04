@@ -16,7 +16,7 @@ import java.util.UUID
 import kotlin.coroutines.resume
 
 enum class Screen { Home,Running,Result,History,Credits }
-data class UiState(val options:Options=Options(),val screen:Screen=Screen.Home,val caps:JSONObject=JSONObject(),val ready:Boolean=false,val busy:Boolean=false,val live:JSONObject=JSONObject(),val result:RunResult?=null,val notice:String="")
+data class UiState(val options:Options=Options(),val screen:Screen=Screen.Home,val caps:JSONObject=JSONObject(),val ready:Boolean=false,val busy:Boolean=false,val live:JSONObject=JSONObject(),val result:RunResult?=null,val notice:String="",val runPortrait:Boolean=false)
 data class Request(val id:String,val started:Long,val options:Options,val measuring:Boolean,val duration:Double=0.0,val capture:Boolean=false,val first:Int=0)
 class BenchViewModel(app:Application):AndroidViewModel(app) {
     private val context=app
@@ -48,6 +48,7 @@ class BenchViewModel(app:Application):AndroidViewModel(app) {
     fun hardware(api:Int)=ui.value.caps.optBoolean(if(api==0)"hardware" else "vulkanHardware")
     fun configure(o:Options){if(ui.value.busy)return;mutable.update {it.copy(options=o,notice="")};viewModelScope.launch {settings.save(o)}}
     fun navigate(screen:Screen){if(!ui.value.busy)mutable.update {it.copy(screen=screen)}}
+    fun toggleRunOrientation(){mutable.update {if(it.busy&&it.screen==Screen.Running)it.copy(runPortrait=!it.runPortrait)else it}}
     fun openResult(row:RunResult){resultReturn=ui.value.screen;mutable.update {it.copy(result=row,screen=Screen.Result)}}
     fun back(){when(ui.value.screen){Screen.Running->stop("中断",true);Screen.Result->mutable.update {it.copy(screen=resultReturn)};Screen.Credits,Screen.History->mutable.update {it.copy(screen=Screen.Home)};else->{}}}
     fun begin(measuring:Boolean,duration:Double=0.0,capture:Boolean=false,first:Int=0){
@@ -62,7 +63,7 @@ class BenchViewModel(app:Application):AndroidViewModel(app) {
         cancelReason="";returnHome=false
         val r=Request(UUID.randomUUID().toString(),System.currentTimeMillis(),options,measuring,if(BuildConfig.DEBUG)duration else 0.0,BuildConfig.DEBUG&&capture,first)
         request=r
-        mutable.update {it.copy(busy=true,live=JSONObject().put("phase","preparing"))}
+        mutable.update {it.copy(busy=true,live=JSONObject().put("phase","preparing"),runPortrait=false)}
         viewModelScope.launch {
             if(measuring)withContext(Dispatchers.IO){dao.save(RunResult(r.id,r.started,options.demo,options.api,options.quality,JSONObject().put("reason","準備中").put("score",JSONObject.NULL).toString(),true))}
             if(cancelReason.isBlank())mutable.update {it.copy(screen=Screen.Running)}else finishBeforeStart(r)

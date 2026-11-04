@@ -1,36 +1,43 @@
 # Demo Benchmark — Android
 
-Android 10以降・64bit ARM向け。OpenGL ES 3.0、Vulkan 1.1に対応し、非対応方式は選択できません。UIはJetpack Compose / Material 3 Expressiveです。
+A lightweight demo benchmark for Android 10+ devices with a 64-bit ARM processor. Supports OpenGL ES 3.0 and Vulkan 1.1, with a Material 3 Expressive UI. Unsupported rendering backends are unavailable for selection.
 
-[署名済みAPK v0.1.1をダウンロード](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.1/DemoBenchmark-Android-v0.1.1-arm64.apk)。既存のAndroid版に上書き更新できます。Windows版は[ルートREADME](../README.md)を参照してください。
+[Download v0.1.1 Preview for Android ARM64](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.1/DemoBenchmark-Android-v0.1.1-arm64.apk). Install the signed APK; it includes the required rendering data and audio and can update the previous Android build. For the Windows version, see the [main README](../README.md).
 
-- **Median**：3D描画性能の計測。品質は最低・低・中・高・最高の5段階で、モデル分割、解像度、MSAAが変わります。
-- **Second Reality**：表示・音声の動作確認。原画質と高画質補間を選べます。元のソフトウェア描画を使用し、詳細モデルへの作り直しは行いません。
+## Demo Overview
 
-「計測する」で開始し、終了後に結果と評価を表示します。「再生」はスコアを保存しません。起動時の自動計測はありません。計測結果は端末内に保存でき、JSONとして共有できます。
+- **Median**: For comparing real-time 3D rendering performance (approx. 130 seconds). Five quality levels adjust model detail, rendering resolution and MSAA.
+- **Second Reality**: For testing rendering, audio and synchronization. Runs at original playback speed with uncapped offscreen rendering. High quality upscales the original software-rendered image using interpolation.
 
-計測・再生は横向きで開始します。状況表示は左上、停止は右下、縦横の切り替えは左下です。向きを変えても再生・計測は継続します。
+*Note: Because Second Reality may redisplay identical original frames, its rating serves as a reference for display processing only. Do not directly compare scores between the two demos.*
 
-計測は画面リフレッシュレートとは独立したオフスクリーン描画です。進行速度を維持し、最初の3秒を除いたGPU完了フレームの平均FPSから `スコア = 平均FPS ÷ 60 × 1000` を求めます。計測中の表示スコアは暫定値です。中断・エラー・ソフトウェアGPUでは正式スコアを出しません。
+## Score & Rating Guidelines
 
-|スコア|平均FPS|目安|
-|---:|---:|---|
-|2000以上|120以上|とても快適|
-|1000以上|60以上|快適|
-|500以上|30以上|動作可能|
-|250以上|15以上|重い|
-|250未満|15未満|動作困難|
+Android measures GPU-completed offscreen frames independently of the screen refresh rate. Compare results using the same demo, rendering backend, quality and app version. Android and Windows scores are not directly comparable.
 
-同じ映像・方式・品質・バージョンで比較してください。Windows版のスコアとは比較できません。Second Realityのスコアは表示処理の評価です。発熱や省電力設定でも変動します。
+$$\text{Score} = \text{round}\left(\frac{\text{Average Rendering FPS}}{60} \times 1000\right)$$
 
-本版は試作です。エミュレーターで配布用ARM64 APKのインストール・起動・短い再生を確認しています。検証用APKでは両方式の描画と短縮計測、結果表示を確認しました。ARM64実機での音声出力・全編再生・性能値は未確認です。
+Official scores and ratings are recorded only when a full run completes on a hardware GPU under valid conditions. The "pts" shown during a run is a provisional value based on the cumulative average starting 3 seconds after playback begins. Interrupted, failed and software-GPU runs still display results with the reason, but receive no official score.
 
-## ビルド
+| Average Rendering FPS | Score Range | Rating |
+| --- | --- | --- |
+| 120 or higher | 2000+ | Very Smooth |
+| 60 – <120 | 1000 – <2000 | Smooth |
+| 30 – <60 | 500 – <1000 | Playable |
+| 15 – <30 | 250 – <500 | Slow |
+| Below 15 | Below 250 | Unplayable |
 
-JDK 17、Android SDK 36、NDK 28.2.13676358、CMake 3.22.1が必要です。`local.properties` に `sdk.dir` を設定し、このディレクトリで `./gradlew assembleRelease` を実行します。通常ビルドはARM64のみです。公開版Material 3 Expressive APIを利用するため、Material3は1.4.0-alpha18に固定しています。
+- Ratings are determined using the unrounded average FPS.
+- Scores and ratings are guidelines specific to the selected demo and settings. Device temperature and power-saving settings can affect results.
+- Ratings for Second Reality describe display processing rather than the original effect rendering speed.
 
-生成APKは未署名です。`sign-apk.ps1` で独自のAndroid署名鍵を使用できます。鍵とパスワードはGitに含めず、将来の更新に備えて保管してください。データを更新した場合のみ `prepare-assets.py` を実行します。
+For build instructions and how to run the application, see [BUILD.md](BUILD.md).
 
-## クレジット・ライセンス
+## Credits & Licenses
 
-アプリ独自コードはMIT。原作映像・モデル・音楽には原作者の権利があり、MITの対象には含みません。原作者の権利を確認して配布してください。[クレジット](CREDITS.txt)およびアプリ内の全文ライセンスを参照してください。
+- **Median**: Ümlaüt Design / Gargaj and original authors (2016)
+- **Second Reality**: Future Crew (1993) / C++ port: XorJS / Conspiracy / Music playback: 8bitbubsy
+- **Android UI & Audio**: Kotlin / Jetpack Compose / Material 3 Expressive / AndroidX / Oboe
+- **Data & Image Libraries**: nlohmann JSON / stb_image
+
+Application code: [MIT](../LICENSE.txt). Original demo assets and music have separate terms. See [Android credits](CREDITS.txt) and the full license texts included in the app.

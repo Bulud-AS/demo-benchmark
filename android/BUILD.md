@@ -2,7 +2,7 @@
 
 ## Install & Run
 
-Install the signed APK from the [Android release](https://github.com/Bulud-AS/demo-benchmark/releases/tag/android-v0.1.3). It supports Android 10+ on ARM64 devices and includes its rendering data and audio.
+Install the signed APK from the [Android release](https://github.com/Bulud-AS/demo-benchmark/releases/tag/android-v0.1.3-beta). It supports Android 10+ on ARM64 devices and includes its rendering data and audio.
 
 The app starts in standby mode. Select the demo, rendering backend and quality, then choose Benchmark or Play. Benchmark saves results and ratings locally and supports sharing them as JSON. Play does not save a benchmark score.
 
@@ -34,4 +34,4 @@ Use the same signing key for app updates. Keep the key and password outside Git.
 
 ## Verification Status
 
-This is an alpha build. Short emulator runs covered installation, both rendering backends, orientation changes, stopping and result display. Physical ARM64 devices, audible audio output, full playback of both demos and official hardware performance scores remain unverified.
+This is a beta build. Short emulator runs covered installation, both rendering backends, orientation changes, stopping and result display. Physical ARM64 devices, audible audio output, full playback of both demos and official hardware performance scores remain unverified.

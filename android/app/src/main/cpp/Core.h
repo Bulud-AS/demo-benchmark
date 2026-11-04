@@ -18,6 +18,7 @@ using Json=nlohmann::json;
 using Bytes=std::vector<uint8_t>;
 using Matrix=std::array<float,16>;
 using Vec=std::array<float,3>;
+Json imageProbe(const Bytes&,int,int,bool);
 double mono();
 Bytes asset(AAssetManager*,const std::string&);
 Json assetJson(AAssetManager*,const std::string&);
@@ -30,13 +31,14 @@ struct Params {
 static_assert(sizeof(Params)==160);
 struct Quality {int id,width,height,samples;};
 Quality quality(int demo,int id);
-struct FrameTag {double time=0;bool measured=false;int draws=0,triangles=0;};
+struct FrameTag {double time=0;bool measured=false;int draws=0,triangles=0;double cpuMs=0,waitMs=0,gpuMs=-1,submitMs=0;};
 struct Backend {
     int width,height,samples;std::string vendor,renderer,version;bool hardware=true;
     int presentationWidth=0,presentationHeight=0,presentationResizes=0;
     Backend(int w,int h,int aa):width(w),height(h),samples(aa){}
     void presentationSize(int w,int h){if(presentationWidth&&(presentationWidth!=w||presentationHeight!=h))presentationResizes++;presentationWidth=w;presentationHeight=h;}
     virtual ~Backend()=default;
+    virtual Json diagnostics()const{return Json::object();}
     virtual int texture(int,int,const uint8_t*,bool)=0;
     virtual int mesh(const void*,int,const void*,int)=0;
     virtual void bind(int,int,const float*)=0;
@@ -45,6 +47,7 @@ struct Backend {
     virtual void begin()=0;
     virtual void end(int,FrameTag,bool,bool)=0;
     virtual std::vector<FrameTag> retire(bool)=0;
+    virtual Json inspect(int)=0;
     virtual void capture(int,const std::string&)=0;
 };
 std::unique_ptr<Backend> createGles(ANativeWindow*,int,int,int,bool);

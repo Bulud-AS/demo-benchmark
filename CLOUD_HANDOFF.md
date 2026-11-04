@@ -2,7 +2,27 @@
 
 Updated: 2026-11-04 (Asia/Tokyo).
 
-## Latest Android update: 0.1.3 Alpha
+## Latest Android update: 0.1.3 Beta
+
+The user requested a detailed Exynos/core-architecture investigation and better
+hardware utilization after reporting arrows Alpha 21.5 FPS versus Galaxy Z Flip
+7 943.2 FPS. See android/docs/device-performance.md for primary sources,
+confirmed application bottlenecks, implementation and remaining device checks.
+
+VersionName is 0.1.3-beta, versionCode 5, benchmark profile android-offscreen-v4.
+The new release tag is android-v0.1.3-beta; retain the existing Alpha APK/tag.
+Beta uses subpass MSAA resolve, precise barriers, fewer pass restarts, CLEAR
+load ops, nonblocking present modes when supported during measurement, Vulkan
+GPU timestamps, CPU/wait/submit metrics, per-second workload records, ADPF and
+pre-measurement image probes. No vendor correction or FPS ceiling is used.
+Readbacks happen before the audio clock/measurement starts. System power and
+thermal limits remain active. No physical Exynos fix or 100% hardware utilization
+has been established. CPU topology metadata is runtime-reported, not guessed.
+Signed ARM64 Beta SHA-256:
+`e6261ae3bcc8641070b13384d7343f20b58a21e6f59f460a4217d20fcbd2ef4a`.
+
+## Previous Android update: 0.1.3 Alpha
+
 
 The Android 0.1.3 release is now labeled Alpha (GitHub pre-release). The user
 wants temporary Alpha releases removed after testing; no deletion is requested

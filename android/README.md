@@ -2,7 +2,7 @@
 
 A lightweight demo benchmark for Android 10+ devices with a 64-bit ARM processor. Supports OpenGL ES 3.0 and Vulkan 1.1, with a Material 3 Expressive UI. Unsupported rendering backends are unavailable for selection.
 
-[Download v0.1.3 Alpha for Android ARM64](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.3/DemoBenchmark-Android-v0.1.3-arm64.apk). Install the signed APK; it includes the required rendering data and audio and can update the previous Android build. For the Windows version, see the [main README](../README.md).
+[Download v0.1.3 Beta for Android ARM64](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.3-beta/DemoBenchmark-Android-v0.1.3-beta-arm64.apk). Install the signed APK; it includes the required rendering data and audio and can update the previous Android build. For the Windows version, see the [main README](../README.md).
 
 ## Demo Overview
 
@@ -15,7 +15,7 @@ A lightweight demo benchmark for Android 10+ devices with a 64-bit ARM processor
 
 Android measures GPU-completed offscreen frames independently of the screen refresh rate. Compare results using the same demo, rendering backend, quality and app version. Android and Windows scores are not directly comparable.
 
-Version 0.1.3 uses benchmark profile `android-offscreen-v3`. Both scene rendering and the presentation buffer use the selected quality resolution in either orientation; Android scales the view for display. Vulkan attachment-load synchronization was corrected in this version. Earlier v1/v2 profile scores are not directly comparable. Shared result JSON includes measured wall time, submitted/completed frame counts and average draw/triangle counts for checking device differences.
+Version 0.1.3 Beta uses profile `android-offscreen-v4`: fixed resolution in either orientation, subpass MSAA resolve, fewer render-pass restarts and precise synchronization. Earlier profiles are not directly comparable. Shared JSON includes GPU timestamps where supported, CPU/wait times, per-second frame/workload counts, CPU topology/ADPF status and six image probes collected before measurement. See the [device analysis](docs/device-performance.md).
 
 $$\text{Score} = \text{round}\left(\frac{\text{Average Rendering FPS}}{60} \times 1000\right)$$
 

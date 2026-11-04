@@ -19,4 +19,4 @@ add_library(demobenchmark SHARED Engine.cpp Scene.cpp Gles.cpp Vulkan.cpp Audio.
 target_include_directories(demobenchmark PRIVATE "${THIRD}" "${SR}" "${SR}/Music")
 target_compile_options(demobenchmark PRIVATE -O2 -fwrapv -fno-strict-aliasing -ffp-contract=off -Wno-narrowing -Wno-int-to-pointer-cast -Wno-deprecated-declarations)
 target_link_options(demobenchmark PRIVATE "-Wl,-z,max-page-size=16384")
-target_link_libraries(demobenchmark PRIVATE oboe android log EGL GLESv3 vulkan)
+target_link_libraries(demobenchmark PRIVATE oboe android log EGL GLESv3 vulkan dl)

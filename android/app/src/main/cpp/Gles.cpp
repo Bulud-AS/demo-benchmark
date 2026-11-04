@@ -48,11 +48,12 @@ public:
     }
     void update(int id,int w,int h,const uint8_t* data)override{auto& t=textures.at(id-1);glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,t.image);if(w!=t.w||h!=t.h){glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,w,h,0,GL_RGBA,GL_UNSIGNED_BYTE,data);t.w=w;t.h=h;}else glTexSubImage2D(GL_TEXTURE_2D,0,0,0,w,h,GL_RGBA,GL_UNSIGNED_BYTE,data);}
     void end(int root,FrameTag tag,bool preview,bool nearest)override{
-        resolve(root);
+        double submitAt=mono();resolve(root);
         if(preview&&windowSurface!=EGL_NO_SURFACE){need(eglMakeCurrent(display,windowSurface,windowSurface,context),"画面が失われました");EGLint w,h;eglQuerySurface(display,windowSurface,EGL_WIDTH,&w);eglQuerySurface(display,windowSurface,EGL_HEIGHT,&h);presentationSize(w,h);bound=0;glBindFramebuffer(GL_FRAMEBUFFER,0);glViewport(0,0,w,h);glClearColor(0,0,0,1);glClear(GL_COLOR_BUFFER_BIT);Params p;p.view[3]=4;p.settings[1]=nearest?1:0;float fit=std::min((float)w/width,(float)h/height);p.rect[0]=width*fit/w;p.rect[1]=height*fit/h;draw(1,p,root,root);need(eglSwapBuffers(display,windowSurface),"画面が失われました");need(eglMakeCurrent(display,pbuffer,pbuffer,context),"描画領域が失われました");}
-        error("Frame");slots[slot]={glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE,0),tag};glFlush();slot=(slot+1)%3;
+        tag.submitMs=(mono()-submitAt)*1000;error("Frame");slots[slot]={glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE,0),tag};glFlush();slot=(slot+1)%3;
     }
     std::vector<FrameTag> retire(bool wait)override{for(int i=0;i<3;i++)retired(i,wait);std::vector<FrameTag> result;result.swap(completed);return result;}
+    Json inspect(int root)override{retire(true);resolve(root);glBindFramebuffer(GL_FRAMEBUFFER,textures.at(root-1).resolve);Bytes rgba(width*height*4);glReadPixels(0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE,rgba.data());error("Readback probe");return imageProbe(rgba,width,height,true);}
     void capture(int root,const std::string& path)override{retire(true);resolve(root);glBindFramebuffer(GL_FRAMEBUFFER,textures.at(root-1).resolve);Bytes rgba(width*height*4);glReadPixels(0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE,rgba.data());error("Capture");std::ofstream file(path,std::ios::binary);file<<"P6\n"<<width<<' '<<height<<"\n255\n";for(int y=height-1;y>=0;y--)for(int x=0;x<width;x++)file.write((char*)rgba.data()+(y*width+x)*4,3);}
 };
 }

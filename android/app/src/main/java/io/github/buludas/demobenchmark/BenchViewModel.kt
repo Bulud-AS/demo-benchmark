@@ -104,7 +104,7 @@ class BenchViewModel(app:Application):AndroidViewModel(app) {
             finally {
                 withContext(NonCancellable){poll?.cancelAndJoin();withContext(Dispatchers.IO){synchronized(guard){if(handle!=0L){NativeEngine.destroy(handle);handle=0L}}};workerConnection?.let {try{context.unbindService(it)}catch(_:Exception){}};workerConnection=null;shared?.close();shared=null;focus?.let {audioManager.abandonAudioFocusRequest(it)};focus=null}
             }
-            nativeResult.put("id",r.id).put("started",r.started).put("appVersion",BuildConfig.VERSION_NAME).put("demo",r.options.demo).put("api",r.options.api).put("quality",r.options.quality).put("model",Build.MANUFACTURER+" "+Build.MODEL).put("sdk",Build.VERSION.SDK_INT).put("conditionStart",initial).put("conditionEnd",conditions())
+            nativeResult.put("id",r.id).put("started",r.started).put("appVersion",BuildConfig.VERSION_NAME).put("demo",r.options.demo).put("api",r.options.api).put("quality",r.options.quality).put("model",Build.MANUFACTURER+" "+Build.MODEL).put("sdk",Build.VERSION.SDK_INT).put("osRelease",Build.VERSION.RELEASE).put("osBuild",Build.DISPLAY).put("conditionStart",initial).put("conditionEnd",conditions())
             if(Build.VERSION.SDK_INT>=31)nativeResult.put("soc",Build.SOC_MODEL)
             val row=RunResult(r.id,r.started,r.options.demo,r.options.api,r.options.quality,nativeResult.toString())
             withContext(Dispatchers.IO){if(r.measuring)dao.save(row);File(context.filesDir,"latest-result.json").writeText(row.json)}

@@ -71,3 +71,14 @@ void SceneRenderer::node(int id,int destination){
 }
 void SceneRenderer::render(double seconds){time=(seconds+.700)*1000;triangles=drawCalls=0;activity.clear();cached.clear();for(auto i=targets.begin();i!=targets.end();)if(!active(i->first)){freeTargets.push_back(i->second);i=targets.erase(i);}else++i;float black[4]={0,0,0,1};gpu.bind(rootId,3,black);node(10,rootId);for(auto i=targets.begin();i!=targets.end();)if(!cached.count(i->first)){freeTargets.push_back(i->second);i=targets.erase(i);}else++i;}
 void SceneRenderer::renderSource(const uint8_t* pixels,int w,int h,uint32_t serial){if(srSerial!=serial){gpu.update(srId,w,h,pixels);srSerial=serial;}float black[4]={0,0,0,1};gpu.bind(rootId,3,black);Params p;p.view[3]=preset.id?3:2;gpu.draw(1,p,srId,whiteId);triangles=2;drawCalls=1;}
+
+Json imageProbe(const Bytes& rgba,int w,int h,bool bottomUp){
+    Json rgb=Json::array();uint64_t hash=14695981039346656037ull;double sum[3]={};int varied=0;
+    for(int y=0;y<9;y++)for(int x=0;x<16;x++){
+        int px=(2*x+1)*w/32,py=(2*y+1)*h/18;if(bottomUp)py=h-1-py;
+        const uint8_t* p=rgba.data()+((size_t)py*w+px)*4;
+        for(int c=0;c<3;c++){rgb.push_back(p[c]);sum[c]+=p[c];hash=(hash^p[c])*1099511628211ull;}
+        if(p[0]!=p[1]||p[1]!=p[2]||(p[0]>8&&p[0]<247))varied++;
+    }
+    return {{"width",16},{"height",9},{"rgb",rgb},{"hash",std::to_string(hash)},{"meanRgb",{sum[0]/144,sum[1]/144,sum[2]/144}},{"variedSamples",varied}};
+}

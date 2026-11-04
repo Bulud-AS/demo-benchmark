@@ -7,7 +7,7 @@ A lightweight demo benchmark for Windows PCs and Android devices.
 | Platform | Version | Download |
 | --- | --- | --- |
 | Windows x64 | v1.1.0 | [ZIP with EXE and required files](https://github.com/Bulud-AS/demo-benchmark/releases/download/v1.1.0/DemoBenchmark-v1.1.0-Windows-x64.zip) |
-| Android 10+ / ARM64 | v0.1.3 Beta | [Signed APK](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.3-beta/DemoBenchmark-Android-v0.1.3-beta-arm64.apk) |
+| Android 10+ / ARM64 | v0.1.3 Gamma | [Signed APK](https://github.com/Bulud-AS/demo-benchmark/releases/download/android-v0.1.3-gamma/DemoBenchmark-Android-v0.1.3-gamma-arm64.apk) |
 
 Windows: extract the complete ZIP and run `Demo Benchmark.exe`, keeping `assets/` and `runtime/` beside it. Android: install the APK; it can update the previous Android build. The APK includes its rendering data and audio. The two platforms have separate version numbers.
 
@@ -22,7 +22,7 @@ Windows: extract the complete ZIP and run `Demo Benchmark.exe`, keeping `assets/
 
 ## Score & Rating Guidelines
 
-Compare results within the same platform, demo, rendering backend, quality and version. Windows uses display FPS; Android uses GPU-completed offscreen frames. Windows and Android scores are not directly comparable.
+Compare results within the same platform, demo, rendering backend, quality and version. Android Gamma measures rendering, CPU image filtering and memory processing together inside Median, with a composite score and separate display-update FPS. See the [Android scoring guide](android/README.md). Windows and Android scores are not directly comparable. The formula and table below apply to Windows.
 
 $$\text{Score} = \text{round}\left(\frac{\text{Average Display FPS}}{60} \times 1000\right)$$
 

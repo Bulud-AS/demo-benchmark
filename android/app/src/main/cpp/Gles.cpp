@@ -4,6 +4,7 @@
 #include <GLES3/gl3.h>
 #include <algorithm>
 #include <fstream>
+#include <deque>
 
 namespace {
 struct Tex {GLuint image=0,fbo=0,resolve=0,color=0,depth=0;int w=0,h=0;bool target=false,dirty=false;};
@@ -12,6 +13,11 @@ struct Slot {GLsync fence=nullptr;FrameTag tag;};
 class Gles:public Backend {
     EGLDisplay display=EGL_NO_DISPLAY;EGLContext context=EGL_NO_CONTEXT;EGLSurface pbuffer=EGL_NO_SURFACE,windowSurface=EGL_NO_SURFACE;
     ANativeWindow* window=nullptr;bool measure;GLuint sceneProgram=0,quadProgram=0,uniforms[3]{};int alignment=256,slot=0,drawIndex=0,bound=0;uint32_t sampleSupport=1;
+    PFNEGLPRESENTATIONTIMEANDROIDPROC presentAt=nullptr;
+    PFNEGLGETNEXTFRAMEIDANDROIDPROC nextId=nullptr;
+    PFNEGLGETFRAMETIMESTAMPSANDROIDPROC frameTimes=nullptr;
+    std::deque<EGLuint64KHR> pendingPresents;
+    void collectPresents(){if(!presentation.feedback)return;while(!pendingPresents.empty()){EGLint key=EGL_DISPLAY_PRESENT_TIME_ANDROID;EGLnsecsANDROID t=0;if(!frameTimes(display,windowSurface,pendingPresents.front(),1,&key,&t)){pendingPresents.pop_front();continue;}if(t==EGL_TIMESTAMP_PENDING_ANDROID)break;if(t>0)presentation.displayed(t);pendingPresents.pop_front();}while(pendingPresents.size()>240)pendingPresents.pop_front();}
     std::vector<Tex> textures;std::vector<Mesh> meshes;std::array<Slot,3> slots;std::vector<FrameTag> completed;
     static void error(const char* where){GLenum e=glGetError();need(e==GL_NO_ERROR,std::string(where)+" / GLES "+std::to_string(e));}
     GLuint compile(GLenum type,const std::string& source){error("Before shader");GLuint shader=glCreateShader(type);need(shader!=0,"Shader allocation failed");error("Create shader");const char* text=source.c_str();glShaderSource(shader,1,&text,nullptr);error("Shader source");glCompileShader(shader);error("Compile shader");GLint ok;glGetShaderiv(shader,GL_COMPILE_STATUS,&ok);if(!ok){char log[8192];glGetShaderInfoLog(shader,sizeof(log),nullptr,log);glDeleteShader(shader);throw std::runtime_error(log);}return shader;}
@@ -28,7 +34,11 @@ public:
         EGLint attributes[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT|EGL_WINDOW_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_ES3_BIT_KHR,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_ALPHA_SIZE,8,EGL_NONE};EGLConfig config;EGLint count;
         need(eglChooseConfig(display,attributes,&config,1,&count)&&count>0,"OpenGL ES 3.0に非対応です");EGLint contextAttrs[]={EGL_CONTEXT_CLIENT_VERSION,3,EGL_NONE};context=eglCreateContext(display,config,EGL_NO_CONTEXT,contextAttrs);need(context!=EGL_NO_CONTEXT,"OpenGL ES 3.0に非対応です");EGLint size[]={EGL_WIDTH,1,EGL_HEIGHT,1,EGL_NONE};pbuffer=eglCreatePbufferSurface(display,config,size);need(pbuffer!=EGL_NO_SURFACE&&eglMakeCurrent(display,pbuffer,pbuffer,context),"描画領域を作成できません");
         vendor=(const char*)glGetString(GL_VENDOR);renderer=(const char*)glGetString(GL_RENDERER);version=(const char*)glGetString(GL_VERSION);std::string lower=renderer;std::transform(lower.begin(),lower.end(),lower.begin(),[](unsigned char c){return std::tolower(c);});hardware=lower.find("swiftshader")==std::string::npos&&lower.find("llvmpipe")==std::string::npos;
-        if(window){EGLint format;eglGetConfigAttrib(display,config,EGL_NATIVE_VISUAL_ID,&format);ANativeWindow_setBuffersGeometry(window,0,0,format);windowSurface=eglCreateWindowSurface(display,config,window,nullptr);need(windowSurface!=EGL_NO_SURFACE,"画面を作成できません");eglMakeCurrent(display,windowSurface,windowSurface,context);eglSwapInterval(display,measure?0:1);eglMakeCurrent(display,pbuffer,pbuffer,context);}
+        if(window){EGLint format;eglGetConfigAttrib(display,config,EGL_NATIVE_VISUAL_ID,&format);ANativeWindow_setBuffersGeometry(window,0,0,format);windowSurface=eglCreateWindowSurface(display,config,window,nullptr);need(windowSurface!=EGL_NO_SURFACE,"画面を作成できません");eglMakeCurrent(display,windowSurface,windowSurface,context);eglSwapInterval(display,measure?0:1);
+            const char* extensions=eglQueryString(display,EGL_EXTENSIONS);std::string ext=extensions?extensions:"";
+            if(ext.find("EGL_ANDROID_presentation_time")!=std::string::npos)presentAt=(PFNEGLPRESENTATIONTIMEANDROIDPROC)eglGetProcAddress("eglPresentationTimeANDROID");
+            if(ext.find("EGL_ANDROID_get_frame_timestamps")!=std::string::npos){nextId=(PFNEGLGETNEXTFRAMEIDANDROIDPROC)eglGetProcAddress("eglGetNextFrameIdANDROID");frameTimes=(PFNEGLGETFRAMETIMESTAMPSANDROIDPROC)eglGetProcAddress("eglGetFrameTimestampsANDROID");auto supported=(PFNEGLGETFRAMETIMESTAMPSUPPORTEDANDROIDPROC)eglGetProcAddress("eglGetFrameTimestampSupportedANDROID");if(nextId&&frameTimes&&supported&&supported(display,windowSurface,EGL_DISPLAY_PRESENT_TIME_ANDROID))presentation.feedback=eglSurfaceAttrib(display,windowSurface,EGL_TIMESTAMPS_ANDROID,EGL_TRUE);}
+            eglMakeCurrent(display,pbuffer,pbuffer,context);}
         auto counts=[&](GLenum format){GLint n=0;glGetInternalformativ(GL_RENDERBUFFER,format,GL_NUM_SAMPLE_COUNTS,1,&n);std::vector<GLint> values(n);if(n)glGetInternalformativ(GL_RENDERBUFFER,format,GL_SAMPLES,n,values.data());uint32_t mask=1;for(auto value:values)mask|=(uint32_t)value;return mask;};sampleSupport=counts(GL_RGBA8)&counts(GL_DEPTH_COMPONENT24);samples=supportedSamples(samples,sampleSupport);glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT,&alignment);alignment=(sizeof(Params)+alignment-1)/alignment*alignment;
         glGenBuffers(3,uniforms);for(auto u:uniforms){glBindBuffer(GL_UNIFORM_BUFFER,u);glBufferData(GL_UNIFORM_BUFFER,alignment*8192,nullptr,GL_DYNAMIC_DRAW);}glBindBuffer(GL_UNIFORM_BUFFER,0);
         error("Buffers");if(assets){sceneProgram=program(assets,"scene.vert","scene.frag");quadProgram=program(assets,"quad.vert","quad.frag");float vertices[36]={-1,-1,0,0,0,0,1,-1,0,0,0,0,1,1,0,0,0,0,-1,-1,0,0,0,0,1,1,0,0,0,0,-1,1,0,0,0,0};uint32_t indices[]={0,1,2,3,4,5};mesh(vertices,6,indices,6);}error("Initialize");
@@ -49,7 +59,9 @@ public:
     void update(int id,int w,int h,const uint8_t* data)override{auto& t=textures.at(id-1);glActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D,t.image);if(w!=t.w||h!=t.h){glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,w,h,0,GL_RGBA,GL_UNSIGNED_BYTE,data);t.w=w;t.h=h;}else glTexSubImage2D(GL_TEXTURE_2D,0,0,0,w,h,GL_RGBA,GL_UNSIGNED_BYTE,data);}
     void end(int root,FrameTag tag,bool preview,bool nearest)override{
         double submitAt=mono();resolve(root);
-        if(preview&&windowSurface!=EGL_NO_SURFACE){need(eglMakeCurrent(display,windowSurface,windowSurface,context),"画面が失われました");EGLint w,h;eglQuerySurface(display,windowSurface,EGL_WIDTH,&w);eglQuerySurface(display,windowSurface,EGL_HEIGHT,&h);presentationSize(w,h);bound=0;glBindFramebuffer(GL_FRAMEBUFFER,0);glViewport(0,0,w,h);glClearColor(0,0,0,1);glClear(GL_COLOR_BUFFER_BIT);Params p;p.view[3]=4;p.settings[1]=nearest?1:0;float fit=std::min((float)w/width,(float)h/height);p.rect[0]=width*fit/w;p.rect[1]=height*fit/h;draw(1,p,root,root);need(eglSwapBuffers(display,windowSurface),"画面が失われました");need(eglMakeCurrent(display,pbuffer,pbuffer,context),"描画領域が失われました");}
+        if(preview&&windowSurface!=EGL_NO_SURFACE){need(eglMakeCurrent(display,windowSurface,windowSurface,context),"画面が失われました");EGLint w,h;eglQuerySurface(display,windowSurface,EGL_WIDTH,&w);eglQuerySurface(display,windowSurface,EGL_HEIGHT,&h);presentationSize(w,h);bound=0;glBindFramebuffer(GL_FRAMEBUFFER,0);glViewport(0,0,w,h);glClearColor(0,0,0,1);glClear(GL_COLOR_BUFFER_BIT);Params p;p.view[3]=4;p.settings[1]=nearest?1:0;float fit=std::min((float)w/width,(float)h/height);p.rect[0]=width*fit/w;p.rect[1]=height*fit/h;draw(1,p,root,root);collectPresents();EGLuint64KHR id=0;if(presentation.feedback&&!nextId(display,windowSurface,&id))id=0;
+            if(presentAt&&presentation.targetNs>0)presentAt(display,windowSurface,presentation.targetNs);
+            need(eglSwapBuffers(display,windowSurface),"画面が失われました");presentation.sent();if(id)pendingPresents.push_back(id);need(eglMakeCurrent(display,pbuffer,pbuffer,context),"描画領域が失われました");}
         tag.submitMs=(mono()-submitAt)*1000;error("Frame");slots[slot]={glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE,0),tag};glFlush();slot=(slot+1)%3;
     }
     Json diagnostics()const override{return {{"sampleCountMask",sampleSupport}};}

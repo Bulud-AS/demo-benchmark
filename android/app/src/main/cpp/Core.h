@@ -5,6 +5,7 @@
 #include <atomic>
 #include <array>
 #include <chrono>
+#include <condition_variable>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -33,7 +34,9 @@ inline int supportedSamples(int requested,uint32_t supported){for(int n:{8,4,2,1
 struct Quality {int id,width,height,samples;};
 Quality quality(int demo,int id);
 struct FrameTag {double time=0;bool measured=false;int draws=0,triangles=0;double cpuMs=0,waitMs=0,gpuMs=-1,submitMs=0;};
+#include "Presentation.h"
 struct Backend {
+    Presentation presentation;
     int width,height,samples;std::string vendor,renderer,version;bool hardware=true;
     int presentationWidth=0,presentationHeight=0,presentationResizes=0;
     Backend(int w,int h,int aa):width(w),height(h),samples(aa){}
@@ -92,7 +95,7 @@ struct alignas(64) SharedSR {
 static_assert(std::atomic<int32_t>::is_always_lock_free&&std::atomic<int64_t>::is_always_lock_free);
 void runSecondReality(SharedSR*,bool,int);
 struct Session {
-    std::atomic<bool> cancel{false};std::mutex lock;std::string snapshot="{}",reason;SharedSR* worker=nullptr;
-    void stop(const std::string& text){std::lock_guard guard(lock);reason=text;cancel=true;if(worker)worker->stop=1;}
+    std::atomic<bool> cancel{false};std::atomic<uint64_t> displaySerial{0};std::atomic<int64_t> displayTimeNs{0},displayPeriodNs{16666667};std::mutex displayLock;std::condition_variable displayWake;std::mutex lock;std::string snapshot="{}",reason;SharedSR* worker=nullptr;
+    void stop(const std::string& text){std::lock_guard guard(lock);reason=text;cancel=true;displayWake.notify_all();if(worker)worker->stop=1;}
     void publish(const Json& data){std::lock_guard guard(lock);snapshot=data.dump();}
 };

@@ -86,6 +86,7 @@ class BenchViewModel(app:Application):AndroidViewModel(app) {
         val battery=context.registerReceiver(null,IntentFilter(Intent.ACTION_BATTERY_CHANGED));val t=battery?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,Int.MIN_VALUE)?:Int.MIN_VALUE
         return JSONObject().put("powerSave",power.isPowerSaveMode).put("thermal",power.currentThermalStatus).put("batteryTemperature",if(t==Int.MIN_VALUE)JSONObject.NULL else t/10.0).put("charging",(battery?.getIntExtra(BatteryManager.EXTRA_PLUGGED,0)?:0)!=0)
     }
+    fun displayPulse(timeNs:Long,periodNs:Long){synchronized(guard){if(handle!=0L)NativeEngine.displayPulse(handle,timeNs,periodNs)}}
     fun surfaceReady(surface:Surface){
         val r=request?:return;if(task?.isActive==true||cancelReason.isNotBlank())return
         task=viewModelScope.launch {

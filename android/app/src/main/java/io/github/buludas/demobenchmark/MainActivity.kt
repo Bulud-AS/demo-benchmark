@@ -4,6 +4,7 @@ package io.github.buludas.demobenchmark
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.view.Choreographer
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.WindowManager
@@ -28,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -140,6 +142,16 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
 @Composable private fun Choice(label:String,value:String,onClick:()->Unit,enabled:Boolean){ListItem(headlineContent={Text(label)},supportingContent={Text(value,style=MaterialTheme.typography.bodyLarge)},trailingContent={Icon(Icons.Filled.KeyboardArrowDown,null)},modifier=Modifier.clickable(enabled=enabled,role=Role.Button,onClick=onClick).heightIn(min=80.dp),colors=ListItemDefaults.colors(containerColor=Color.Transparent))}
 @Composable private fun Running(vm:BenchViewModel,state:UiState){
     val live=state.live;val phase=live.optString("phase","preparing")
+    val displayView=LocalView.current
+    DisposableEffect(vm){
+        val choreographer=Choreographer.getInstance()
+        val callback=object:Choreographer.FrameCallback{override fun doFrame(timeNs:Long){
+            val hz=displayView.display?.refreshRate?.takeIf{it>0}?:60f
+            vm.displayPulse(timeNs,(1_000_000_000.0/hz).toLong());choreographer.postFrameCallback(this)
+        }}
+        choreographer.postFrameCallback(callback)
+        onDispose{choreographer.removeFrameCallback(callback)}
+    }
     Box(Modifier.fillMaxSize().background(Color.Black)){
         BoxWithConstraints(Modifier.fillMaxSize()){
             val renderWidth=state.options.renderWidth;val renderHeight=state.options.renderHeight
@@ -179,21 +191,21 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
 @Composable private fun ResultPage(vm:BenchViewModel,row:RunResult){
     val context=LocalContext.current;val data=row.data;var details by remember(row.id){mutableStateOf(false)}
     Scaffold(topBar={Bar("結果",{vm.back()})}){padding->Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.spacedBy(20.dp)){
-        Text(if(row.demo==0)"スコア" else "表示スコア",style=MaterialTheme.typography.titleMedium)
+        Text(if(data.optBoolean("integratedMedian"))"総合スコア" else if(row.demo==0)"スコア" else "表示スコア",style=MaterialTheme.typography.titleMedium)
         Text(row.score?.let{integer(it)}?:"—",style=if(LocalDensity.current.fontScale>1.3)MaterialTheme.typography.headlineMedium else MaterialTheme.typography.displayMedium)
         if(row.score!=null)Text("pts",style=MaterialTheme.typography.bodyLarge)
         Text(row.assessment,style=MaterialTheme.typography.headlineSmall)
         Text(row.options.demoName+" / "+row.options.apiName+"\n"+row.options.qualityName+" · "+data.optInt("width",0)+" × "+data.optInt("height",0)+(if(data.has("samples"))" · MSAA "+data.optInt("samples")+"×" else ""),style=MaterialTheme.typography.bodyLarge)
         Card(colors=CardDefaults.cardColors(containerColor=MaterialTheme.colorScheme.surfaceContainerLow)){
-            Metric("平均描画FPS",if(data.optLong("frames")>0)decimal(row.fps)else "—")
+            Metric(if(data.has("presentation"))"平均表示更新FPS" else "平均描画FPS",if(data.optLong("frames")>0)decimal(row.fps)else "—")
             if(!data.isNull("onePercentLow"))Metric("1% Low",decimal(data.optDouble("onePercentLow")))
-            if(!data.isNull("gpuMs"))Metric("GPU時間",decimal(data.optDouble("gpuMs"))+" ms")
+
             if(row.demo==1)Metric("ソース更新FPS",if(data.has("sourceFps"))decimal(data.optDouble("sourceFps"))else "—")
         }
         Button(onClick={vm.configure(row.options.copy(muted=vm.ui.value.options.muted,theme=vm.ui.value.options.theme));vm.navigate(Screen.Home);vm.begin(true)},enabled=!vm.ui.value.busy&&vm.supported(row.api)&&(vm.hardware(row.api)||vm.allowSoftware),modifier=Modifier.fillMaxWidth().heightIn(min=56.dp)){Text("もう一度計測")}
         OutlinedButton(onClick={val dir=File(context.cacheDir,"shared").apply{mkdirs()};val file=File(dir,"${row.id}.json").apply{writeText(row.json)};val uri=FileProvider.getUriForFile(context,BuildConfig.APPLICATION_ID+".files",file);context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("application/json").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),"結果を共有"))},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp)){Text("共有")}
         TextButton(onClick={details=!details}){Text(if(details)"詳細を閉じる" else "詳細")}
-        if(details){Text("Android描画性能計測 · "+data.optString("appVersion","—")+" · "+data.optString("profile","android-offscreen-v1"),style=MaterialTheme.typography.bodyMedium);Text(data.optString("model")+"\n"+data.optString("renderer")+"\n"+data.optString("driver"),style=MaterialTheme.typography.bodyMedium);Text("計測フレーム "+integer(data.optLong("frames")),style=MaterialTheme.typography.bodyMedium);if(data.has("audioUnderruns"))Text("音声アンダーラン "+data.optInt("audioUnderruns"));val conditions=data.optJSONObject("conditionEnd");if(conditions!=null&&!conditions.isNull("batteryTemperature"))Text("バッテリー温度 "+decimal(conditions.optDouble("batteryTemperature"))+" ℃");val error=data.optString("errorDetail");if(error.isNotBlank())Text(error.take(1200),style=MaterialTheme.typography.bodySmall)}
+        if(details){if(data.has("renderFps"))Metric("画面外の描画FPS",decimal(data.optDouble("renderFps")));if(data.has("presentation"))Text("FPS計測："+data.getJSONObject("presentation").optString("source"));Text("Android描画性能計測 · "+data.optString("appVersion","—")+" · "+data.optString("profile","android-offscreen-v1"),style=MaterialTheme.typography.bodyMedium);Text(data.optString("model")+"\n"+data.optString("renderer")+"\n"+data.optString("driver"),style=MaterialTheme.typography.bodyMedium);Text("計測フレーム "+integer(data.optLong("frames")),style=MaterialTheme.typography.bodyMedium);if(data.has("audioUnderruns"))Text("音声アンダーラン "+data.optInt("audioUnderruns"));val conditions=data.optJSONObject("conditionEnd");if(conditions!=null&&!conditions.isNull("batteryTemperature"))Text("バッテリー温度 "+decimal(conditions.optDouble("batteryTemperature"))+" ℃");val error=data.optString("errorDetail");if(error.isNotBlank())Text(error.take(1200),style=MaterialTheme.typography.bodySmall)}
     }}
 }
 @Composable private fun Metric(label:String,value:String){ListItem(headlineContent={Text(label)},supportingContent={Text(value,style=MaterialTheme.typography.titleLarge)},colors=ListItemDefaults.colors(containerColor=Color.Transparent))}

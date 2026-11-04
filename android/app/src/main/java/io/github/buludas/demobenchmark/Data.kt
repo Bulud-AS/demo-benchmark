@@ -29,7 +29,7 @@ data class RunResult(@PrimaryKey val id:String,val started:Long,val demo:Int,val
     val options:Options get()=Options(demo,api,if(demo==0)quality else 1,if(demo==1)quality else 1)
     val score:Long? get()=data.let { if(it.isNull("score"))null else it.optLong("score") }
     val fps:Double get()=data.optDouble("fps",0.0)
-    val assessment:String get(){if(!data.optBoolean("complete"))return data.optString("reason","中断").ifBlank {"中断"};val prefix=if(demo==1)"表示：" else "";return prefix+when {fps>=120->"とても快適";fps>=60->"快適";fps>=30->"動作可能";fps>=15->"重い";else->"動作困難"}}
+    val assessment:String get(){if(!data.optBoolean("complete"))return data.optString("reason","中断").ifBlank {"中断"};if(data.optBoolean("integratedMedian")){val p=data.optJSONObject("presentation")?.optDouble("p95Ms",0.0)?:0.0;return "表示："+when{fps>=90&&p<=14->"とても快適";fps>=55&&p<=25->"快適";fps>=27&&p<=50->"動作可能";fps>=13&&p<=100->"重い";else->"動作困難"}};val prefix=if(demo==1)"表示：" else "";return prefix+when {fps>=120->"とても快適";fps>=60->"快適";fps>=30->"動作可能";fps>=15->"重い";else->"動作困難"}}
 }
 @Dao
 interface RunsDao {

@@ -10,6 +10,7 @@ object NativeEngine {
     external fun cancel(handle:Long,reason:String)
     external fun snapshot(handle:Long):String
     external fun run(handle:Long,assets:AssetManager,surface:Surface,config:String,shared:SharedMemory?):String
+    external fun displayPulse(handle:Long,timeNs:Long,periodNs:Long)
     external fun destroy(handle:Long)
     external fun sharedSize():Int
     external fun initializeShared(shared:SharedMemory)

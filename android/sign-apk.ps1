@@ -16,7 +16,7 @@ $aligned = Join-Path ([IO.Path]::GetTempPath()) (([guid]::NewGuid().ToString()) 
 try {
     & "$tools\zipalign.exe" -P 16 -f 4 $InputApk $aligned
     if ($LASTEXITCODE -ne 0) { throw 'APK alignment failed.' }
-    & "$tools\apksigner.bat" sign --ks $KeyStore --ks-key-alias $Alias --ks-pass env:DB_STORE_PASSWORD --key-pass env:DB_STORE_PASSWORD --v4-signing-enabled false --out $destination $aligned
+    & "$tools\apksigner.bat" sign --ks $KeyStore --ks-key-alias $Alias --ks-pass env:DB_STORE_PASSWORD --key-pass env:DB_STORE_PASSWORD --v1-signing-enabled true --v2-signing-enabled true --v3-signing-enabled true --v4-signing-enabled false --out $destination $aligned
     if ($LASTEXITCODE -ne 0) { throw 'APK signing failed.' }
     & "$tools\apksigner.bat" verify --verbose --print-certs $destination
     if ($LASTEXITCODE -ne 0) { throw 'APK signature verification failed.' }

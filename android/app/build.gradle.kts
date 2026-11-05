@@ -12,8 +12,8 @@ android {
         applicationId = "io.github.buludas.demobenchmark"
         minSdk = 29
         targetSdk = 36
-        versionCode = 7
-        versionName = "0.1.3-gamma-diagnostic"
+        versionCode = 8
+        versionName = "0.1.3-gamma-diagnostic-r2"
         ndk { abiFilters += (project.findProperty("qaAbi")?.toString() ?: "arm64-v8a") }
         externalNativeBuild { cmake { cppFlags += listOf("-std=c++20", "-O2", "-fno-strict-aliasing"); arguments += "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON" } }
     }
@@ -28,7 +28,10 @@ android {
     sourceSets["main"].assets.srcDirs("../../assets", "src/main/assets", "../../notices")
     sourceSets["main"].assets.srcDir(layout.buildDirectory.dir("generated/vulkan-assets"))
     androidResources { noCompress += listOf("mesh", "wav", "spv") }
-    packaging { resources.excludes += setOf("META-INF/LICENSE*", "META-INF/NOTICE*") }
+    packaging {
+        jniLibs.useLegacyPackaging = true
+        resources.excludes += setOf("META-INF/LICENSE*", "META-INF/NOTICE*")
+    }
 }
 val compileBenchShaders by tasks.registering {
     val source = file("src/main/assets/shaders")

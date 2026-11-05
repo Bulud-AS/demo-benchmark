@@ -1,0 +1,9 @@
+# Gamma Diagnostic R2 installation compatibility
+
+The original diagnostic APK was reported as invalid by the arrows Alpha package installer. Its published download matches the validated 71,182,877-byte artifact. ZIP CRCs, Android package parsing, ARM64 ELF alignment, and v1/v2/v3 signature verification pass locally. The previous verifier output showed v3 because its default verification range started at Android 10; checking an explicit API 21–36 signature range confirms all three schemes. There is no confirmed missing-signature defect.
+
+R2 uses compressed native libraries extracted by Android at installation instead of loading uncompressed libraries directly from the APK. This is an installation compatibility alternative, not a confirmed diagnosis of the arrows failure. The package ID and signing key are unchanged, and versionCode increases from 7 to 8. No uninstall is required for a same-signer update. Rendering and diagnostic workload logic are unchanged.
+
+The release includes an APK, SHA-256 checksum and ZIP containing the same APK/checksum. A ZIP extraction checks archive CRCs, providing another way to detect an incomplete download. Physical arrows installation remains unverified until the user retries. If it is still rejected, the downloaded byte count and the device's package-install failure code are needed to distinguish corruption, update conflicts and installer-specific behavior.
+
+References: [Android native-library extraction](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs), [AOSP native installer checks](https://android.googlesource.com/platform/frameworks/base/+/HEAD/core/jni/com_android_internal_content_NativeLibraryHelper.cpp), [Android APK signature verification](https://source.android.com/docs/security/features/apksigning/v3).

@@ -12,8 +12,8 @@ android {
         applicationId = "io.github.buludas.demobenchmark"
         minSdk = 29
         targetSdk = 36
-        versionCode = 6
-        versionName = "0.1.3-gamma"
+        versionCode = 7
+        versionName = "0.1.3-gamma-diagnostic"
         ndk { abiFilters += (project.findProperty("qaAbi")?.toString() ?: "arm64-v8a") }
         externalNativeBuild { cmake { cppFlags += listOf("-std=c++20", "-O2", "-fno-strict-aliasing"); arguments += "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON" } }
     }

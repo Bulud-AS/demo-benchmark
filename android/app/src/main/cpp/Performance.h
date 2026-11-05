@@ -32,7 +32,7 @@ public:
         for(int i=0;i<count;i++){
             Json core={{"id",i},{"allowed",affinity?Json(CPU_ISSET(i,&mask)!=0):Json(nullptr)}};
             auto read=[&](const char* path,const char* key){std::ifstream file("/sys/devices/system/cpu/cpu"+std::to_string(i)+path);int64_t value;if(file>>value)core[key]=value;};
-            read("/cpufreq/cpuinfo_max_freq","maximumKHz");read("/cpu_capacity","capacity");cores.push_back(core);
+            read("/cpufreq/cpuinfo_max_freq","maximumKHz");read("/cpufreq/scaling_cur_freq","reportedCurrentKHz");read("/cpu_capacity","capacity");cores.push_back(core);
         }
         data["cpuCores"]=cores;return data;
     }

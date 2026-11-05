@@ -33,7 +33,7 @@ static_assert(sizeof(Params)==160);
 inline int supportedSamples(int requested,uint32_t supported){for(int n:{8,4,2,1})if(n<=requested&&(supported&(uint32_t)n))return n;throw std::runtime_error("対応するMSAA形式がありません");}
 struct Quality {int id,width,height,samples;};
 Quality quality(int demo,int id);
-struct FrameTag {double time=0;bool measured=false;int draws=0,triangles=0;double cpuMs=0,waitMs=0,gpuMs=-1,submitMs=0;};
+struct FrameTag {double time=0;bool measured=false;int draws=0,triangles=0;double cpuMs=0,waitMs=0,gpuMs=-1,submitMs=0,acquireMs=0,presentMs=0;};
 #include "Presentation.h"
 struct Backend {
     Presentation presentation;

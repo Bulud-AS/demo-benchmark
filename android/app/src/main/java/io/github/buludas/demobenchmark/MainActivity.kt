@@ -60,7 +60,7 @@ class MainActivity:ComponentActivity() {
         if(BuildConfig.DEBUG&&intent.getBooleanExtra("qa_autostart",false)){
             lifecycleScopeLaunch {
                 model.ui.first {it.ready};model.configure(Options(demo=intent.getIntExtra("qa_demo",0),api=intent.getIntExtra("qa_api",0),medianQuality=intent.getIntExtra("qa_quality",0),srQuality=intent.getIntExtra("qa_quality",0).coerceIn(0,1),muted=true));delay(200)
-                model.begin(true,intent.getStringExtra("qa_duration")?.toDoubleOrNull()?:4.5,intent.getBooleanExtra("qa_capture",false),intent.getIntExtra("qa_sr_part",0))
+                model.begin(true,intent.getStringExtra("qa_duration")?.toDoubleOrNull()?:4.5,intent.getBooleanExtra("qa_capture",false),intent.getIntExtra("qa_sr_part",0),intent.getBooleanExtra("qa_diagnostic",false))
             }
         }
     }
@@ -125,6 +125,7 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
                     if(state.ready&&!vm.supported(o.api))Text("この端末では描画方式を使用できません",style=MaterialTheme.typography.bodyMedium)
                     else if(state.ready&&!vm.hardware(o.api)&&!vm.allowSoftware)Text("このGPUは性能計測の対象外です",style=MaterialTheme.typography.bodyMedium)
                     Button(onClick={vm.begin(true)},enabled=state.ready&&!state.busy&&vm.supported(o.api)&&(vm.hardware(o.api)||vm.allowSoftware),modifier=Modifier.fillMaxWidth().heightIn(min=64.dp)){Icon(Icons.Filled.PlayArrow,null);Spacer(Modifier.width(8.dp));Text("計測する",style=MaterialTheme.typography.titleMedium)}
+                    if(o.demo==0)TextButton(onClick={vm.begin(true,diagnostic=true)},enabled=state.ready&&!state.busy&&vm.supported(o.api)&&(vm.hardware(o.api)||vm.allowSoftware)){Text("描画診断")}
                     FilledTonalButton(onClick={vm.begin(false)},enabled=state.ready&&!state.busy&&vm.supported(o.api),modifier=Modifier.fillMaxWidth().heightIn(min=56.dp)){Text("再生",style=MaterialTheme.typography.titleMedium)}
                 }
             }
@@ -175,7 +176,7 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
                     if(phase=="preparing"){
                         Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){LoadingIndicator(Modifier.size(32.dp));Text("準備中",style=MaterialTheme.typography.titleMedium)}
                     }else{
-                        FlowRow(horizontalArrangement=Arrangement.spacedBy(16.dp)){Text(decimal(live.optDouble("fps",0.0))+" FPS",style=MaterialTheme.typography.titleMedium);if(live.optBoolean("measuring",true))Text((if(live.isNull("score"))"—" else integer(live.optLong("score")))+" pts",style=MaterialTheme.typography.titleMedium)}
+                        FlowRow(horizontalArrangement=Arrangement.spacedBy(16.dp)){Text(decimal(live.optDouble("fps",0.0))+" FPS",style=MaterialTheme.typography.titleMedium);if(live.optBoolean("diagnostic"))Text("診断 "+live.optInt("diagnosticStage")+" / 6") else if(live.optBoolean("measuring",true))Text((if(live.isNull("score"))"—" else integer(live.optLong("score")))+" pts",style=MaterialTheme.typography.titleMedium)}
                         val elapsed=live.optDouble("elapsed",0.0);val duration=live.optDouble("duration",0.0)
                         Text(if(phase=="warmup")"ウォームアップ" else if(duration>0)"残り "+clock(duration-elapsed)else "経過 "+clock(elapsed),style=MaterialTheme.typography.bodyMedium)
                     }
@@ -191,18 +192,18 @@ private fun clock(seconds:Double):String {val s=seconds.toInt().coerceAtLeast(0)
 @Composable private fun ResultPage(vm:BenchViewModel,row:RunResult){
     val context=LocalContext.current;val data=row.data;var details by remember(row.id){mutableStateOf(false)}
     Scaffold(topBar={Bar("結果",{vm.back()})}){padding->Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement=Arrangement.spacedBy(20.dp)){
-        Text(if(data.optBoolean("integratedMedian"))"総合スコア" else if(row.demo==0)"スコア" else "表示スコア",style=MaterialTheme.typography.titleMedium)
+        Text(if(data.optBoolean("diagnostic"))"描画診断" else if(data.optBoolean("integratedMedian"))"総合スコア" else if(row.demo==0)"スコア" else "表示スコア",style=MaterialTheme.typography.titleMedium)
         Text(row.score?.let{integer(it)}?:"—",style=if(LocalDensity.current.fontScale>1.3)MaterialTheme.typography.headlineMedium else MaterialTheme.typography.displayMedium)
         if(row.score!=null)Text("pts",style=MaterialTheme.typography.bodyLarge)
         Text(row.assessment,style=MaterialTheme.typography.headlineSmall)
         Text(row.options.demoName+" / "+row.options.apiName+"\n"+row.options.qualityName+" · "+data.optInt("width",0)+" × "+data.optInt("height",0)+(if(data.has("samples"))" · MSAA "+data.optInt("samples")+"×" else ""),style=MaterialTheme.typography.bodyLarge)
         Card(colors=CardDefaults.cardColors(containerColor=MaterialTheme.colorScheme.surfaceContainerLow)){
-            Metric(if(data.has("presentation"))"平均表示更新FPS" else "平均描画FPS",if(data.optLong("frames")>0)decimal(row.fps)else "—")
+            if(data.optBoolean("diagnostic")){val stages=data.optJSONArray("diagnosticStages");if(stages!=null)for(i in 0 until stages.length()){val s=stages.getJSONObject(i);Metric((i+1).toString()+" · "+listOf("描画のみ","総合負荷あり","総合負荷・旧表示","描画のみ・旧表示","表示時刻指定なし","描画のみ・再確認")[i.coerceAtMost(5)],decimal(s.optDouble("renderFps"))+" 描画FPS / "+decimal(s.getJSONObject("presentation").optDouble("fps"))+" 表示更新FPS")}}else Metric(if(data.has("presentation"))"平均表示更新FPS" else "平均描画FPS",if(data.optLong("frames")>0)decimal(row.fps)else "—")
             if(!data.isNull("onePercentLow"))Metric("1% Low",decimal(data.optDouble("onePercentLow")))
 
             if(row.demo==1)Metric("ソース更新FPS",if(data.has("sourceFps"))decimal(data.optDouble("sourceFps"))else "—")
         }
-        Button(onClick={vm.configure(row.options.copy(muted=vm.ui.value.options.muted,theme=vm.ui.value.options.theme));vm.navigate(Screen.Home);vm.begin(true)},enabled=!vm.ui.value.busy&&vm.supported(row.api)&&(vm.hardware(row.api)||vm.allowSoftware),modifier=Modifier.fillMaxWidth().heightIn(min=56.dp)){Text("もう一度計測")}
+        Button(onClick={vm.configure(row.options.copy(muted=vm.ui.value.options.muted,theme=vm.ui.value.options.theme));vm.navigate(Screen.Home);vm.begin(true,diagnostic=data.optBoolean("diagnostic"))},enabled=!vm.ui.value.busy&&vm.supported(row.api)&&(vm.hardware(row.api)||vm.allowSoftware),modifier=Modifier.fillMaxWidth().heightIn(min=56.dp)){Text(if(data.optBoolean("diagnostic"))"もう一度診断" else "もう一度計測")}
         OutlinedButton(onClick={val dir=File(context.cacheDir,"shared").apply{mkdirs()};val file=File(dir,"${row.id}.json").apply{writeText(row.json)};val uri=FileProvider.getUriForFile(context,BuildConfig.APPLICATION_ID+".files",file);context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("application/json").putExtra(Intent.EXTRA_STREAM,uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),"結果を共有"))},modifier=Modifier.fillMaxWidth().heightIn(min=48.dp)){Text("共有")}
         TextButton(onClick={details=!details}){Text(if(details)"詳細を閉じる" else "詳細")}
         if(details){if(data.has("renderFps"))Metric("画面外の描画FPS",decimal(data.optDouble("renderFps")));if(data.has("presentation"))Text("FPS計測："+data.getJSONObject("presentation").optString("source"));Text("Android描画性能計測 · "+data.optString("appVersion","—")+" · "+data.optString("profile","android-offscreen-v1"),style=MaterialTheme.typography.bodyMedium);Text(data.optString("model")+"\n"+data.optString("renderer")+"\n"+data.optString("driver"),style=MaterialTheme.typography.bodyMedium);Text("計測フレーム "+integer(data.optLong("frames")),style=MaterialTheme.typography.bodyMedium);if(data.has("audioUnderruns"))Text("音声アンダーラン "+data.optInt("audioUnderruns"));val conditions=data.optJSONObject("conditionEnd");if(conditions!=null&&!conditions.isNull("batteryTemperature"))Text("バッテリー温度 "+decimal(conditions.optDouble("batteryTemperature"))+" ℃");val error=data.optString("errorDetail");if(error.isNotBlank())Text(error.take(1200),style=MaterialTheme.typography.bodySmall)}

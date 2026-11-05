@@ -17,7 +17,7 @@ import kotlin.coroutines.resume
 
 enum class Screen { Home,Running,Result,History,Credits }
 data class UiState(val options:Options=Options(),val screen:Screen=Screen.Home,val caps:JSONObject=JSONObject(),val ready:Boolean=false,val busy:Boolean=false,val live:JSONObject=JSONObject(),val result:RunResult?=null,val notice:String="",val runPortrait:Boolean=false)
-data class Request(val id:String,val started:Long,val options:Options,val measuring:Boolean,val duration:Double=0.0,val capture:Boolean=false,val first:Int=0)
+data class Request(val id:String,val started:Long,val options:Options,val measuring:Boolean,val duration:Double=0.0,val capture:Boolean=false,val first:Int=0,val diagnostic:Boolean=false)
 class BenchViewModel(app:Application):AndroidViewModel(app) {
     private val context=app
     private val settings=Settings(app)
@@ -51,17 +51,17 @@ class BenchViewModel(app:Application):AndroidViewModel(app) {
     fun toggleRunOrientation(){mutable.update {if(it.busy&&it.screen==Screen.Running)it.copy(runPortrait=!it.runPortrait)else it}}
     fun openResult(row:RunResult){resultReturn=ui.value.screen;mutable.update {it.copy(result=row,screen=Screen.Result)}}
     fun back(){when(ui.value.screen){Screen.Running->stop("中断",true);Screen.Result->mutable.update {it.copy(screen=resultReturn)};Screen.Credits,Screen.History->mutable.update {it.copy(screen=Screen.Home)};else->{}}}
-    fun begin(measuring:Boolean,duration:Double=0.0,capture:Boolean=false,first:Int=0){
+    fun begin(measuring:Boolean,duration:Double=0.0,capture:Boolean=false,first:Int=0,diagnostic:Boolean=false){
         if(ui.value.busy||!ui.value.ready||!supported(ui.value.options.api))return
         if(measuring&&!hardware(ui.value.options.api)&&!allowSoftware)return
-        val options=ui.value.options
+        val options=if(diagnostic)ui.value.options.copy(demo=0,muted=true)else ui.value.options
         if(!options.muted){
             val f=AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT).setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()).setOnAudioFocusChangeListener { if(it<0)stop("音声フォーカス喪失") }.setWillPauseWhenDucked(true).build()
             if(audioManager.requestAudioFocus(f)!=AudioManager.AUDIOFOCUS_REQUEST_GRANTED){mutable.update {it.copy(notice="音声を使用できません。音声をオフにして試してください。")};return}
             focus=f
         }
         cancelReason="";returnHome=false
-        val r=Request(UUID.randomUUID().toString(),System.currentTimeMillis(),options,measuring,if(BuildConfig.DEBUG)duration else 0.0,BuildConfig.DEBUG&&capture,first)
+        val r=Request(UUID.randomUUID().toString(),System.currentTimeMillis(),options,measuring,if(BuildConfig.DEBUG)duration else 0.0,BuildConfig.DEBUG&&capture,first,diagnostic)
         request=r
         mutable.update {it.copy(busy=true,live=JSONObject().put("phase","preparing"),runPortrait=false)}
         viewModelScope.launch {
@@ -90,15 +90,15 @@ class BenchViewModel(app:Application):AndroidViewModel(app) {
     fun surfaceReady(surface:Surface){
         val r=request?:return;if(task?.isActive==true||cancelReason.isNotBlank())return
         task=viewModelScope.launch {
-            var poll:Job?=null;var nativeResult:JSONObject
+            var poll:Job?=null;var nativeResult:JSONObject;val diagnosticConditions=org.json.JSONArray()
             val initial=conditions()
             try {
                 val memory=if(r.options.demo==1)bindWorker(r)else null
                 if(cancelReason.isNotBlank())throw CancellationException(cancelReason)
-                val cfg=JSONObject().put("demo",r.options.demo).put("api",r.options.api).put("quality",r.options.quality).put("muted",r.options.muted).put("measuring",r.measuring).put("testDuration",r.duration)
+                val cfg=JSONObject().put("demo",r.options.demo).put("api",r.options.api).put("quality",r.options.quality).put("muted",r.options.muted).put("measuring",r.measuring).put("testDuration",r.duration).put("diagnostic",r.diagnostic)
                 if(r.capture)cfg.put("captureDir",File(context.filesDir,"captures").absolutePath)
                 synchronized(guard){handle=NativeEngine.create();if(cancelReason.isNotBlank())NativeEngine.cancel(handle,cancelReason)}
-                poll=launch(Dispatchers.IO){while(isActive){val raw=synchronized(guard){if(handle!=0L)NativeEngine.snapshot(handle)else "{}"};mutable.update {it.copy(live=JSONObject(raw))};delay(250)}}
+                poll=launch(Dispatchers.IO){while(isActive){val raw=synchronized(guard){if(handle!=0L)NativeEngine.snapshot(handle)else "{}"};val snapshot=JSONObject(raw);if(r.diagnostic)diagnosticConditions.put(conditions().put("elapsed",snapshot.optDouble("elapsed",0.0)).put("stage",snapshot.optInt("diagnosticStage")));mutable.update {it.copy(live=snapshot)};delay(if(r.diagnostic)1000 else 250)}}
                 val raw=withContext(Dispatchers.IO){NativeEngine.run(handle,context.assets,surface,cfg.toString(),memory)}
                 nativeResult=JSONObject(raw)
             }catch(e:Throwable){nativeResult=JSONObject().put("complete",false).put("score",JSONObject.NULL).put("reason",cancelReason.ifBlank {"実行できませんでした"}).put("errorDetail",e.message)}
@@ -106,6 +106,7 @@ class BenchViewModel(app:Application):AndroidViewModel(app) {
                 withContext(NonCancellable){poll?.cancelAndJoin();withContext(Dispatchers.IO){synchronized(guard){if(handle!=0L){NativeEngine.destroy(handle);handle=0L}}};workerConnection?.let {try{context.unbindService(it)}catch(_:Exception){}};workerConnection=null;shared?.close();shared=null;focus?.let {audioManager.abandonAudioFocusRequest(it)};focus=null}
             }
             nativeResult.put("id",r.id).put("started",r.started).put("appVersion",BuildConfig.VERSION_NAME).put("demo",r.options.demo).put("api",r.options.api).put("quality",r.options.quality).put("model",Build.MANUFACTURER+" "+Build.MODEL).put("sdk",Build.VERSION.SDK_INT).put("osRelease",Build.VERSION.RELEASE).put("osBuild",Build.DISPLAY).put("conditionStart",initial).put("conditionEnd",conditions())
+            if(r.diagnostic)nativeResult.put("diagnosticConditions",diagnosticConditions)
             if(Build.VERSION.SDK_INT>=31)nativeResult.put("soc",Build.SOC_MODEL)
             val row=RunResult(r.id,r.started,r.options.demo,r.options.api,r.options.quality,nativeResult.toString())
             withContext(Dispatchers.IO){if(r.measuring)dao.save(row);File(context.filesDir,"latest-result.json").writeText(row.json)}

@@ -1,6 +1,7 @@
 #include "Core.h"
 #include "Performance.h"
 #include "MedianWork.h"
+#include "RenderDiagnostic.h"
 #include <android/asset_manager_jni.h>
 #include <android/native_window_jni.h>
 #include <android/sharedmem_jni.h>
@@ -33,9 +34,10 @@ Json run(Session* session,JNIEnv* env,AAssetManager* manager,jobject surface,con
         window=std::make_unique<NativeWindow>(env,surface);setShaderAssets(manager);vulkanAssets=manager;
         gpu=api?createVulkan(window->value,preset.width,preset.height,preset.samples,measuring):createGles(window->value,preset.width,preset.height,preset.samples,measuring);
         result["requestedSamples"]=preset.samples;result["samples"]=gpu->samples;result["msaaFallback"]=preset.samples!=gpu->samples;preset.samples=gpu->samples;result["renderer"]=gpu->renderer;result["driver"]=gpu->version;result["vendor"]=gpu->vendor;result["hardware"]=gpu->hardware;session->publish(result);
-        MedianWork integrated(measuring&&!demo,gpu->hardware,&session->cancel);result["integratedMedian"]=measuring&&!demo;
-        Performance performance(measuring&&gpu->hardware);result["performanceStart"]=performance.data();
+        MedianWork integrated(measuring&&!demo&&!config.value("diagnostic",false),gpu->hardware,&session->cancel);result["integratedMedian"]=measuring&&!demo;
+        Performance performance(measuring&&gpu->hardware&&!config.value("diagnostic",false));result["performanceStart"]=performance.data();
         SceneRenderer renderer(manager,*gpu,preset,demo!=0);result["loadedTriangles"]=renderer.loadedTriangles;
+        if(config.value("diagnostic",false)&&!demo){result["renderProbes"]=Json::array();for(double t:{2.7,18.,38.,84.,100.,124.}){if(session->cancel)break;gpu->begin();renderer.render(t);gpu->end(renderer.root(),{},false,false);auto p=gpu->inspect(renderer.root());p["time"]=t;p["drawCalls"]=renderer.drawCalls;p["triangles"]=renderer.triangles;result["renderProbes"].push_back(p);}return renderDiagnostic(*session,*gpu,renderer,result);}
         auto consume=[&](bool wait){for(auto& tag:gpu->retire(wait)){total++;if(tag.measured){measured++;measuredDraws+=tag.draws;measuredTriangles+=tag.triangles;cpuTotalMs+=tag.cpuMs;waitTotalMs+=tag.waitMs;submitTotalMs+=tag.submitMs;
             auto& bin=bins[(int)tag.time];bin.frames++;bin.draws+=tag.draws;bin.triangles+=tag.triangles;bin.cpuMs+=tag.cpuMs;bin.waitMs+=tag.waitMs;bin.submitMs+=tag.submitMs;if(tag.gpuMs>=0){gpuTimed++;gpuTotalMs+=tag.gpuMs;bin.gpuTimed++;bin.gpuMs+=tag.gpuMs;}}}};
         std::string captures=config.value("captureDir",std::string());
